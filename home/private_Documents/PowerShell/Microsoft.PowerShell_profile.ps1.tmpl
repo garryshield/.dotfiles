@@ -1,0 +1,32 @@
+{{-/* chezmoi:template:encoding=utf-8-bom */-}}
+
+{{ template "windows/utils.ps1.tmpl" . }}
+
+$Env:SHELL = (Get-Process -Id $PID).ProcessName
+
+################################################
+# PsReadLine
+$PSReadLineOptions = @{
+  EditMode              = "Emacs"
+  PredictionViewStyle   = "ListView"
+}
+Set-PSReadLineOption @PSReadLineOptions
+
+################################################
+# Alias
+
+################################################
+# Fastfetch
+fastfetch
+
+################################################
+# oh-my-posh
+oh-my-posh init $Env:SHELL --config "$Env:USERPROFILE/.oh-my-posh/themes/onehalf.minimal.omp.json" | Invoke-Expression
+
+################################################
+# Starship
+Invoke-Expression (&starship init powershell)
+
+################################################
+# fzf
+$Env:FZF_DEFAULT_OPTS_FILE = "$Env:USERPROFILE/.fzfrc"

@@ -1,0 +1,37 @@
+{{- if eq .osid "linux-debian" -}}
+#!/usr/bin/env bash
+set -euo pipefail
+
+echo "[Script] run_onchange_after_0001-chsh.sh.tmpl"
+
+{{- $sudo := "" }}
+{{- if ne .chezmoi.username "root" }}
+{{- $sudo = "sudo " }}
+{{- end }}
+
+command_exists() { command -v "$1" >/dev/null 2>&1; }
+
+LOCAL_BIN=${LOCAL_BIN:-$HOME/.local/bin}
+mkdir -p $LOCAL_BIN
+export PATH="$LOCAL_BIN:$PATH"
+GH_PXY=${GH_PXY:-}
+GH_TKN={{ gopassRaw "github/api-token/https" }}
+
+: << 'EOF_COMMENT'
+2025-09-20 22:14:31
+EOF_COMMENT
+
+################################################
+# 获取当前用户的 shell 路径
+user_shell=$(getent passwd $USER | awk -F: '{print $NF}')
+zsh_path="$(which zsh)"
+# 比较用户的当前 shell 是否与 zsh 路径相同
+if [[ "$user_shell" != "$zsh_path" ]]; then
+    # 检查 zsh 是否已在 /etc/shells 中
+    if ! grep -q "$zsh_path" /etc/shells; then
+        echo "$zsh_path" | {{ $sudo }}tee -a /etc/shells > /dev/null
+    fi
+    # 修改当前用户的默认 shell
+    {{ $sudo }}chsh -s "$zsh_path" "$USER"
+fi
+{{- end -}}

@@ -1,0 +1,76 @@
+# https://learn.microsoft.com/zh-cn/windows-server/administration/openssh/openssh_install_firstuse
+[config.windows.capabilities]
+enable = [
+  "OpenSSH.Client",
+]
+disable = [
+]
+
+[config.windows.features]
+enable = [
+  "Microsoft-Hyper-V-All",
+  "VirtualMachinePlatform",
+  "Microsoft-Windows-Subsystem-Linux",
+  "Containers-DisposableClientVM",
+]
+disable = [
+]
+
+[config.windows.winget]
+install = [
+  "Microsoft.WindowsTerminal",
+  "Microsoft.PowerShell",
+  "Git.Git",
+  "GnuPG.GnuPG",
+  "gopass.gopass",
+  "JanDeDobbeleer.OhMyPosh",
+  "Fastfetch-cli.Fastfetch",
+  "Starship.Starship",
+  "dbrgn.tealdeer",
+  "7zip.7zip",
+  "sharkdp.bat",
+  "junegunn.fzf",
+  "Microsoft.PowerToys",
+  "Google.Chrome",
+  "Microsoft.VisualStudioCode",
+]
+uninstall = [
+]
+
+[config.windows.pwshmodule]
+install = [
+  "CompletionPredictor",
+]
+uninstall = []
+
+[config.windows.powershellmodule]
+install = [
+  "PsReadLine",
+  "PendingReboot",
+  "NetworkingDsc",
+  "PsIni",
+  "Wsl",
+  "Fonts",
+  "Microsoft.WinGet.Client",
+]
+uninstall = []
+
+[config.windows.env]
+path = [
+  "$Env:USERPROFILE\\.local\\bin",
+  "$Env:LOCALAPPDATA\\gopass",
+  "$Env:ProgramFiles\\7-Zip",
+]
+[config.windows.env.vars]
+MY_VAR_KEY = "MY_VAR_VAL"
+
+[config.windows.wsl]
+location = "$Env:USERPROFILE\\wsl"
+username = "garryshield"
+password = "xxxxxx"
+[[config.windows.wsl.list]]
+base = "Debian"
+name = "Debian-Base"
+[[config.windows.wsl.list]]
+base = "Ubuntu"
+name = "Ubuntu-Base"

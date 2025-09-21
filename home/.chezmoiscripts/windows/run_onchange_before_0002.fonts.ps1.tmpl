@@ -1,0 +1,13 @@
+{{-/* chezmoi:template:encoding=utf-8-bom */-}}
+
+Write-Host "[Script $($PSVersionTable.PSEdition)] run_onchange_before_0002.fonts.ps1.tmpl"
+
+{{ template "windows/utils.ps1.tmpl" . }}
+
+################################################
+$fonts=$(Get-Fonts | Select-Object Name)
+foreach ($font in $fonts) {
+  Uninstall-Fonts -Name $font.Name
+}
+oh-my-posh font install CascadiaMono
+oh-my-posh font install Monaspace

@@ -1,0 +1,77 @@
+#
+{{ . | toPrettyJson | comment "# " }}
+
+#
+sourceDir = {{ .chezmoi.config.sourceDir | quote }}
+
+{{/*# =====  =====*/}}
+{{- $osid := .chezmoi.os -}}
+{{- if (and (eq .chezmoi.os "linux") (hasKey .chezmoi.osRelease "id")) -}}
+{{-   $osid = printf "%s-%s" .chezmoi.os .chezmoi.osRelease.id -}}
+{{- end -}}
+
+{{/*# =====  =====*/}}
+{{- $name := "garryshield" -}}
+{{- $pass := "xxxxxx" -}}
+{{- $email := "749291704@qq.com" -}}
+{{- $name = promptString "Name" $name -}}
+{{- $pass = promptString "Pass" $pass -}}
+{{- $email = promptString "Email" $email -}}
+
+{{/*# =====  =====*/}}
+{{- $suffix := "" -}}
+{{- if eq .chezmoi.os "windows" -}}
+  {{- $suffix = "ps1" -}}
+{{- else }}
+  {{- $suffix = "sh" -}}
+{{- end -}}
+
+#
+encryption = "gpg"
+[gpg]
+    recipient = {{ promptString "GPG Recipient" "C1FDDE1117EA6E4F7405418CDACB0846D5FE1913!" | quote }}
+
+#
+[interpreters.ps1]
+    command = "pwsh"
+    args = ["-NoLogo", "-NoProfile"]
+
+#
+[data]
+    name = {{ $name | quote }}
+    pass = {{ $pass | quote }}
+    email = {{ $email | quote }}
+    osid = {{ $osid | quote }}
+    suffix = {{ $suffix | quote }}
+
+[data.config.windows.wsl]
+    enable = {{ promptBool "WSL Enable" (eq .chezmoi.os "windows") }}
+    username = {{ $name | quote }}
+    password = {{ $pass | quote }}
+    
+{{/*# =====  =====*/}}
+{{- if eq .chezmoi.os "windows" -}}
+#
+[hooks.init.pre]
+    command = "pwsh"
+    args = ["-NoLogo", "-NoProfile", "-File", "{{ .chezmoi.sourceDir }}/.chezmoihooks/windows/.hook.init.pre.{{ $suffix }}"]
+[hooks.init.post]
+    command = "pwsh"
+    args = ["-NoLogo", "-NoProfile", "-File", "{{ .chezmoi.sourceDir }}/.chezmoihooks/windows/.hook.init.post.{{ $suffix }}"]
+[hooks.read-source-state.pre]
+    command = "pwsh"
+    args = ["-NoLogo", "-NoProfile", "-File", "{{ .chezmoi.sourceDir }}/.chezmoihooks/windows/.hook.read-source-state.pre.{{ $suffix }}"]
+[hooks.read-source-state.post]
+    command = "pwsh"
+    args = ["-NoLogo", "-NoProfile", "-File", "{{ .chezmoi.sourceDir }}/.chezmoihooks/windows/.hook.read-source-state.post.{{ $suffix }}"]
+{{- else -}}
+#
+[hooks.init.pre]
+    command = "{{ .chezmoi.sourceDir }}/.chezmoihooks/{{ .chezmoi.os }}/.hook.init.pre.{{ $suffix }}"
+[hooks.init.post]
+    command = "{{ .chezmoi.sourceDir }}/.chezmoihooks/{{ .chezmoi.os }}/.hook.init.post.{{ $suffix }}"
+[hooks.read-source-state.pre]
+    command = "{{ .chezmoi.sourceDir }}/.chezmoihooks/{{ .chezmoi.os }}/.hook.read-source-state.pre.{{ $suffix }}"
+[hooks.read-source-state.post]
+    command = "{{ .chezmoi.sourceDir }}/.chezmoihooks/{{ .chezmoi.os }}/.hook.read-source-state.post.{{ $suffix }}"
+{{- end -}}

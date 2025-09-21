@@ -1,0 +1,31 @@
+
+function Test-PowerShell {
+    return $PSVersionTable.PSEdition -eq 'Desktop'
+    # return (Get-Process -Id $PID).ProcessName -eq 'powershell'
+}
+
+function Test-Pwsh {
+    return $PSVersionTable.PSEdition -eq 'Core'
+    # return (Get-Process -Id $PID).ProcessName -eq 'pwsh'
+}
+
+function Test-Administrator {
+    return (New-Object Security.Principal.WindowsPrincipal([Security.Principal.WindowsIdentity]::GetCurrent())).IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)
+}
+
+function Test-RebootNeeded {
+  $res = (powershell -NoLogo -NoProfile -Command {
+    Test-PendingReboot -SkipConfigurationManagerClientCheck -Detailed
+  })
+  return $res.IsRebootPending
+}
+
+function ReloadEnvPath() {
+  param(
+    [string[]]$Add = @()
+  )
+  $machinePath = [System.Environment]::GetEnvironmentVariable("Path", "Machine")
+  $userPath = [System.Environment]::GetEnvironmentVariable("Path", "User")
+
+  $Env:Path = ($machinePath + ";" + $userPath + ";" + ($Add -join ";")).TrimEnd(';')
+}

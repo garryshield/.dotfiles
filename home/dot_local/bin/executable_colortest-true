@@ -1,0 +1,36 @@
+#!/usr/bin/env bun
+
+/*
+# 前景色： \033[38;2;R;G;Bm
+# 背景色： \033[48;2;R;G;Bm
+# R = 0-255
+# G = 0-255
+# B = 0-255
+*/
+
+let width = 20;
+let height = 20;
+
+const cols = await Bun.$`tput cols`.text()*1;
+width = Math.floor(cols / 3);
+height = width;
+
+await Bun.write(Bun.stdout, '\n');
+
+// 循环每个像素
+for (let y = 0; y < height; y++) {
+  y > 0 && await Bun.write(Bun.stdout, '\n');
+  for (let x = 0; x < width; x++) {
+    // 计算色相 (Hue)
+    const hue = (x / width) * 360;  // 0 ~ 360
+    const saturation = 100;         // 饱和度固定为 100%
+    const lightness = 100 - (y / height) * 100; // 从顶部亮到底部暗
+
+    const hsl_str = `hsl(${hue},${saturation}%,${lightness}%)`;
+    const { r, g, b } = Bun.color(hsl_str, "{rgb}")
+    const ansi = `\x1b[38;2;${r};${g};${b}m\x1b[48;2;${r};${g};${b}m * \x1b[0m`;
+    await Bun.write(Bun.stdout, ansi);
+  }
+}
+
+await Bun.write(Bun.stdout, '\n\n');

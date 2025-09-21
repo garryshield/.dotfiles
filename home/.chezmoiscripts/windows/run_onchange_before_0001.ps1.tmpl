@@ -1,0 +1,182 @@
+{{-/* chezmoi:template:encoding=utf-8-bom */-}}
+
+Write-Host "[Script $($PSVersionTable.PSEdition)] run_onchange_before_0001.ps1.tmpl"
+
+{{ template "windows/utils.ps1.tmpl" . }}
+
+################################################
+# self-elevate script
+# https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.management/start-process
+if (-not (Test-Administrator)) {
+    $CommandLine = ""
+    $CommandLine += " -NoExit"
+    $CommandLine += " -NoLogo"
+    $CommandLine += " -NoProfile"
+    $CommandLine += " -File `"" + $MyInvocation.MyCommand.Path + "`""
+    $CommandLine += " " + $MyInvocation.UnboundArguments
+    Start-Process `
+        -Wait `
+        -Verb RunAs `
+        -FilePath "pwsh" `
+        -ArgumentList $CommandLine
+
+    Exit
+}
+
+################################################
+$list = @(
+{{- range $itm := .config.windows.capabilities.enable }}
+  "{{ $itm }}"
+{{- end }}
+)
+foreach ($itm in $list) {
+  Write-Host "Enable Capability [$itm]..."
+  $tmp = Get-WindowsCapability -Online -Name "$itm"
+  if ($tmp.State -eq "Installed") {} else {
+    Add-WindowsCapability -Online -Name "$itm"
+  }
+}
+$list = @(
+{{- range $itm := .config.windows.capabilities.disable }}
+  "{{ $itm }}"
+{{- end }}
+)
+foreach ($itm in $list) {
+  Write-Host "Disable Capability [$itm]..."
+  $tmp = Get-WindowsCapability -Online -Name "$itm"
+  if ($tmp.State -eq "Installed") {
+    Remove-WindowsCapability -Online -Name "$itm"
+  } else {}
+}
+
+################################################
+$list = @(
+{{- range $itm := .config.windows.features.enable }}
+  "{{ $itm }}"
+{{- end }}
+)
+foreach ($itm in $list) {
+  Write-Host "Enable Feature [$itm]..."
+  $tmp = Get-WindowsOptionalFeature -Online -FeatureName "$itm"
+  if ($tmp.State -eq "Enabled") {} else {
+    Enable-WindowsOptionalFeature -NoRestart -Online -FeatureName "$itm"
+  }
+}
+$list = @(
+{{- range $itm := .config.windows.features.disable }}
+  "{{ $itm }}"
+{{- end }}
+)
+foreach ($itm in $list) {
+  Write-Host "Disable Feature [$itm]..."
+  $tmp = Get-WindowsOptionalFeature -Online -FeatureName "$itm"
+  if ($tmp.State -eq "Enabled") {
+    Disable-WindowsOptionalFeature -NoRestart -Online -FeatureName "$itm"
+  } else {}
+}
+
+################################################
+$list = @(
+{{- range $itm := .config.windows.winget.install }}
+  "{{ $itm }}"
+{{- end }}
+)
+foreach ($itm in $list) {
+  Write-Host "Install App [$itm]..."
+  winget install `
+    --id="$itm" `
+    --exact `
+    --nowarn `
+    --authentication-mode=silent `
+    --disable-interactivity `
+    --accept-source-agreements `
+    --accept-package-agreements `
+    --uninstall-previous
+}
+$list = @(
+{{- range $itm := .config.windows.winget.uninstall }}
+  "{{ $itm }}"
+{{- end }}
+)
+foreach ($itm in $list) {
+  Write-Host "Uninstall App [$itm]..."
+  winget uninstall `
+    --id="$itm" `
+    --exact `
+    --nowarn `
+    --authentication-mode=silent `
+    --disable-interactivity `
+    --accept-source-agreements `
+    --force `
+    --purge
+}
+
+################################################
+Set-PSResourceRepository -Name PSGallery -Trusted
+{{- range $itm := .config.windows.pwshmodule.install }}
+  Write-Host "Install [{{ $itm }}]..."
+  Install-PSResource -Name "{{ $itm }}"
+{{- end }}
+{{- range $itm := .config.windows.pwshmodule.uninstall }}
+  Write-Host "Uninstall Module [{{ $itm }}]..."
+  Uninstall-PSResource -Name "{{ $itm }}"
+{{- end }}
+
+################################################
+# Update PowerShellGet
+# https://learn.microsoft.com/en-us/powershell/gallery/powershellget/update-powershell-51
+powershell -NoLogo -NoProfile -Command {
+    Write-Host "Update PowerShellGet..."
+    Install-PackageProvider -Name NuGet -Force | Out-Null
+    Install-Module -Name PowerShellGet -AllowClobber -Force
+    Set-PSRepository -Name PSGallery -InstallationPolicy Trusted
+}
+{{- range $itm := .config.windows.powershellmodule.install }}
+powershell -NoLogo -NoProfile -Command {
+  Write-Host "Install PowerShell Module [{{ $itm }}]..."
+  Install-Module -Name "{{ $itm }}" -Force
+}
+{{- end }}
+{{- range $itm := .config.windows.powershellmodule.uninstall }}
+powershell -NoLogo -NoProfile -Command {
+  Write-Host "Uninstall PowerShell Module [{{ $itm }}]..."
+  Remove-Module -Name {{ $itm }} -Force
+}
+{{- end }}
+
+################################################
+$path0 = @({{ .config.windows.env.path | quoteList | join ", " | replace "\\\\" "\\" }})
+$path1 = [System.Environment]::GetEnvironmentVariable("Path", "User") -split ";"
+$path2 = (($path0 + $path1) | Sort-Object -Unique) -join ";"
+[System.Environment]::SetEnvironmentVariable("Path", $path2, "User")
+
+$vars = @{
+  {{- range $k, $v := .config.windows.env.vars -}}
+  {{- $k -}} = '{{- $v -}}';
+  {{- end -}}
+}
+foreach ($_ in $vars.GetEnumerator()) {
+  [System.Environment]::SetEnvironmentVariable($_.Key, $_.Value, "User")
+}
+
+################################################
+# 显示隐藏文件
+Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" -Name 'Hidden' -Value 1
+# 显示受保护的系统文件
+Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" -Name 'ShowSuperHidden' -Value 1
+# 显示扩展名
+Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" -Name 'HideFileExt' -Value 0
+# 开始布局 0 [默认] 1 [更多固定] 2 [更多建议]	
+Set-ItemProperty -Path "HKCU:\\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" -Name 'Start_Layout' -Value 1
+# 文件资源管理器默认打开 0 [主文件夹] 1 [此电脑]
+Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" -Name "LaunchTo" -Value 1 
+# 桌面上显示 "此电脑"
+Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\HideDesktopIcons\NewStartPanel" -Name "{20D04FE0-3AEA-1069-A2D8-08002B30309D}" -Value 0
+# 桌面上显示 "控制面板"
+Set-ItemProperty -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\HideDesktopIcons\NewStartPanel" -Name "{5399E694-6CE5-4D6C-8FCE-1D8870FDCBA0}" -Value 0
+
+Stop-Process -Name explorer -Force
+# Start-Process explorer
+
+################################################
+ReloadEnvPath

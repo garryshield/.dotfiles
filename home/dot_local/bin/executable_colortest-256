@@ -1,0 +1,49 @@
+#!/bin/bash
+
+# 前景色： \033[38;5;<C>m
+# 背景色： \033[48;5;<C>m
+# C = 0-255
+
+echo
+
+# 0–15：ANSI + Bright-ANSI
+for i in {0..15}; do
+    # 0 黑色, 15 白色
+    fg="38;5;$((i < 8 ? 15 : 0))"
+    bg="48;5;${i}"
+    ((i == 8)) && printf "\n\n"
+    printf "\033[%s;%sm %3s \033[0m" "$fg" "$bg" "$i"
+done
+printf "\n\n"
+
+# 16–231：6*6*6=216 16+36*r+6*g+b (0≤r,g,b≤5)
+for g in {0..5}; do
+    ((g > 0)) && printf "\n"
+    printf " %3s " "g$g"
+    for b in {0..5}; do
+        printf " %3s " "b$b"
+    done
+    printf "\n"
+    for r in {0..5}; do
+        ((r > 0)) && printf "\n"
+        printf " %3s " "r$r"
+        for b in {0..5}; do
+            COLOR=$((16 + 36 * r + 6 * g + b))
+            fg="38;5;0" # 黑色
+            bg="48;5;${COLOR}"
+            printf "\033[%s;%sm %3s \033[0m" "$fg" "$bg" "$COLOR"
+        done
+    done
+done
+printf "\n\n"
+
+# 232–255：Grayscale dark to light in 24 steps
+for i in {0..23}; do
+    COLOR=$((232 + i))
+    # 0 黑色, 15 白色
+    fg="38;5;$((i < 12 ? 15 : 0))"
+    bg="48;5;${COLOR}"
+    ((i == 12)) && printf "\n\n"
+    printf "\033[%s;%sm %3s \033[0m" "$fg" "$bg" "$COLOR"
+done
+printf "\n\n"

@@ -1,0 +1,20 @@
+[boot]
+systemd=true
+command=systemctl start sshd; systemctl start docker;
+
+[automount]
+enabled=true
+mountFsTab=true
+# options="case=dir"
+
+[user]
+default=garryshield
+
+[network]
+hostname=WSL
+generateHosts=true
+generateResolvConf=true
+
+[interop]
+enabled=true
+appendWindowsPath=true

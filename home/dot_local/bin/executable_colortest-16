@@ -1,0 +1,58 @@
+#!/bin/bash
+
+# 前景色： \033[<FG>m
+# 背景色： \033[<BG>m
+# FG = 90–97
+# BG = 100–107
+
+TXT='xxxx'
+BGS=(100m 101m 102m 103m 104m 105m 106m 107m)
+FGS=(
+    'm' '1m'
+    '90m' '1;90m'
+    '91m' '1;91m'
+    '92m' '1;92m'
+    '93m' '1;93m'
+    '94m' '1;94m'
+    '95m' '1;95m'
+    '96m' '1;96m'
+    '97m' '1;97m'
+)
+
+# 计算长度
+TXT_LEN=${#TXT}
+BGS_LEN=4
+FGS_LEN=5
+# 填充长度
+PAD_LEN=1
+# 项目长度
+ITM_LEN=$((TXT_LEN + 2 * PAD_LEN))
+
+TXT_NEW=$(printf "%*s%s%*s" $PAD_LEN "" $TXT $PAD_LEN "")
+
+# 第一行
+echo
+printf "%${FGS_LEN}s" ""
+printf " "
+printf "%${ITM_LEN}s" ""
+for BG in "${BGS[@]}"; do
+    printf " "
+    printf "%*s%s%*s" "$PAD_LEN" "" "$BG" "$((ITM_LEN - PAD_LEN - ${#BG}))" ""
+done
+echo
+
+# 循环前景色和背景色组合
+for ITM in "${FGS[@]}"; do
+    FG=${ITM// /} # 去除空格
+    # 第一列
+    printf "%*s%s" $((FGS_LEN - ${#FG})) "" "$FG"
+    printf " "
+    # 第三列
+    printf "\033[%s%s\033[0m" "$FG" "$TXT_NEW"
+    for BG in "${BGS[@]}"; do
+        printf " "
+        printf "\033[%s\033[%s%s\033[0m" "$FG" "$BG" "$TXT_NEW"
+    done
+    echo
+done
+echo

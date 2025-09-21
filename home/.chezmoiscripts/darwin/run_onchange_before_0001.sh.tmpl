@@ -1,0 +1,125 @@
+{{- if eq .osid "darwin" -}}
+#!/usr/bin/env bash
+set -euo pipefail
+
+echo "[Script] run_onchange_before_0001.sh.tmpl"
+
+{{- $sudo := "" }}
+{{- if ne .chezmoi.username "root" }}
+{{- $sudo = "sudo " }}
+{{- end }}
+
+command_exists() { command -v "$1" >/dev/null 2>&1; }
+
+LOCAL_BIN=${LOCAL_BIN:-$HOME/.local/bin}
+mkdir -p $LOCAL_BIN
+export PATH="$LOCAL_BIN:$PATH"
+GH_PXY=${GH_PXY:-}
+GH_TKN={{ gopassRaw "github/api-token/https" }}
+
+: << 'EOF_COMMENT'
+2025-09-20 22:14:31
+EOF_COMMENT
+
+################################################
+# homebrew
+if ! command_exists brew; then
+  /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+else
+  brew update
+fi
+
+{{
+  $brews := list 
+    "curl" "wget" "tree" "unzip"
+    "git"
+    "zsh"
+    "rsync"
+    "htop"
+    "jq"
+
+    "gnupg"
+    "pass"
+    "gopass"
+
+    "tmux"
+    "duf"
+    "lolcat"
+    "figlet"
+    "neofetch"
+
+    "atuin"
+    "fnm"
+    "starship"
+    "fzf"
+    "fd"
+    "bat"
+    "eza"
+    "fastfetch"
+    "asciinema"
+    "agg"
+    "lazydocker"
+    "lazygit"
+    "nnn"
+    "lf"
+    "tealdeer"
+    "glow"
+}}
+brew bundle --file=/dev/stdin <<EOF
+{{ range ($brews | sortAlpha | uniq) -}}
+brew "{{ . }}"
+{{ end -}}
+EOF
+
+# https://github.com/chubin/cheat.sh
+curl -L -o cht.sh https://cht.sh/:cht.sh
+install -m 755 cht.sh ~/.local/bin/cht.sh
+rm cht.sh
+
+# https://atuin.sh/
+# https://github.com/atuinsh/atuin
+atuin logout
+atuin login \
+    -u {{ (gopassRaw "atuin" | fromYaml).username | quote }} \
+    -p {{ (gopassRaw "atuin" | fromYaml).password | quote }} \
+    -k {{ (gopassRaw "atuin" | fromYaml).key | quote }}
+atuin status
+atuin --version
+
+# https://github.com/Schniz/fnm
+eval "$(fnm env --use-on-cd --shell bash)"
+fnm ls | awk '{print $2}' | grep -v '^system$' | xargs -n1 fnm uninstall
+fnm install --lts
+npm install -g bun serve pnpm
+node --version
+npm --version
+
+# ffmpeg
+# https://evermeet.cx/ffmpeg/
+# https://evermeet.cx/ffmpeg/getrelease/zip
+# https://evermeet.cx/ffmpeg/getrelease/ffprobe/zip
+# https://evermeet.cx/ffmpeg/getrelease/ffplay/zip
+# https://evermeet.cx/ffmpeg/getrelease/ffserver/zip
+# https://evermeet.cx/ffmpeg/info/ffmpeg/release
+install_ffmpeg() {
+  binaries=("ffmpeg" "ffprobe" "ffplay" "ffserver")
+  for binary in "${binaries[@]}"; do
+    curl -L -o "${binary}.zip" "https://evermeet.cx/ffmpeg/getrelease/${binary}/zip"
+    unzip -o "${binary}.zip"
+    install -m 755 "$binary" ~/.local/bin/"$binary"
+    rm "$binary" "${binary}.zip"
+    "$binary" -version
+  done
+}
+
+if ! command_exists ffmpeg; then
+  install_ffmpeg
+else
+  current_version=$(ffmpeg -version | awk 'NR==1 {print $3}' | cut -d'-' -f1)
+  latest_version=$(curl -s https://evermeet.cx/ffmpeg/info/ffmpeg/release | jq -r '.version')
+  if [[ "$current_version" != "$latest_version" ]]; then
+    install_ffmpeg
+  fi
+fi
+
+{{- end -}}

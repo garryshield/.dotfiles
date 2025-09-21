@@ -1,0 +1,26 @@
+{{- if eq .osid "linux-debian" -}}
+#!/usr/bin/env bash
+set -euo pipefail
+
+echo "[Script] run_onchange_after_0002-font.sh.tmpl"
+
+{{- $sudo := "" }}
+{{- if ne .chezmoi.username "root" }}
+{{- $sudo = "sudo " }}
+{{- end }}
+
+command_exists() { command -v "$1" >/dev/null 2>&1; }
+
+LOCAL_BIN=${LOCAL_BIN:-$HOME/.local/bin}
+mkdir -p $LOCAL_BIN
+export PATH="$LOCAL_BIN:$PATH"
+GH_PXY=${GH_PXY:-}
+GH_TKN={{ gopassRaw "github/api-token/https" }}
+
+: << 'EOF_COMMENT'
+2025-09-21 17:48:57
+EOF_COMMENT
+
+################################################
+fc-cache -f
+{{- end -}}

@@ -1,0 +1,38 @@
+.oh-my-zsh/cache/**
+.oh-my-bash/cache/**
+
+.chezmoiscripts/**
+!.chezmoiscripts/common/**
+!.chezmoiscripts/{{ .chezmoi.os }}/**
+
+{{/*# =====  =====*/}}
+{{- if eq .chezmoi.os "linux" -}}
+Library/**
+{{- else -}}
+{{- end }}
+
+{{/*# =====  =====*/}}
+{{- if eq .chezmoi.os "darwin" -}}
+.config/tealdeer/**
+{{- else -}}
+{{- end }}
+
+{{/*# =====  =====*/}}
+{{- if eq .chezmoi.os "windows" -}}
+.oh-my-zsh/**
+.oh-my-bash/**
+.local/**
+.config/*
+!.config/starship.toml
+!.config/fastfetch/
+.bash_profile
+.bashrc
+.zshrc
+.npmrc
+Library/**
+{{- else -}}
+.oh-my-posh/**
+.wslconfig
+AppData/**
+Documents/**
+{{- end }}

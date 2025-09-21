@@ -1,0 +1,42 @@
+Host *
+    ServerAliveInterval 60
+    ServerAliveCountMax 3
+    TCPKeepAlive yes
+    AddKeysToAgent yes
+    ForwardAgent yes
+    # UseKeychain yes
+    Compression yes
+    # ControlMaster auto
+    # ControlPersist 10m
+    # ControlPath ~/.ssh/cm-%r@%h:%p
+
+Host github.com
+    HostName github.com
+    User git
+    IdentityFile ~/.ssh/keys/github/id_ed25519
+    IdentitiesOnly yes
+
+Host pve
+    HostName 10.10.1.10
+    User root
+    IdentityFile ~/.ssh/keys/pve/id_ed25519
+    IdentitiesOnly yes
+
+Host openwrt
+    HostName 10.10.1.1
+    User root
+    IdentityFile ~/.ssh/keys/openwrt/id_rsa
+    IdentitiesOnly yes
+
+Host wsl-garry
+    HostName 10.10.1.12
+    User garry
+    IdentityFile ~/.ssh/keys/wsl/garry/id_ed25519
+    IdentitiesOnly yes
+
+Host wsl-root
+    HostName 10.10.1.12
+    User root
+    IdentityFile ~/.ssh/keys/wsl/root/id_ed25519
+    IdentitiesOnly yes
+    

@@ -1,0 +1,43 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+# 创建用户
+username={{ .config.windows.wsl.username }}
+password={{ .config.windows.wsl.password }}
+if ! id "$username" &>/dev/null; then
+  useradd -m -s /bin/bash -G sudo "$username"
+  echo "$username:$password" | chpasswd
+  echo "$username ALL=(ALL) NOPASSWD:ALL" > "/etc/sudoers.d/$username"
+  chmod 440 "/etc/sudoers.d/$username"
+fi
+
+# 要启用的语言
+langs=("en_US.UTF-8" "zh_CN.UTF-8")
+for lang in "${langs[@]}"; do
+  if ! grep -q "^$lang" /etc/locale.gen; then
+    sed -i "s/^# *\($lang.*\)/\1/" /etc/locale.gen
+  fi
+done
+locale-gen
+
+# 默认语言用中文
+lang="${langs[0]}"
+update-locale LANG="$lang" LC_ALL="$lang"
+
+# 写入 /etc/environment
+sed -i '/^#### Start Locale Settings ####/,/^#### End Locale Settings ####/d' /etc/environment
+cat <<EOF >> /etc/environment
+#### Start Locale Settings ####
+LANG=$lang
+LC_ALL=$lang
+#### End Locale Settings ####
+EOF
+
+locale -a
+
+# 设置时区
+timezone="Asia/Shanghai"
+echo "$timezone" > /etc/timezone
+ln -sf "/usr/share/zoneinfo/$timezone" /etc/localtime
+
+timedatectl

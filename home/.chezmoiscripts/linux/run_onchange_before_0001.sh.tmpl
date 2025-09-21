@@ -1,0 +1,349 @@
+{{- if eq .osid "linux-debian" -}}
+#!/usr/bin/env bash
+set -euo pipefail
+
+echo "[Script] run_onchange_before_0001.sh.tmpl"
+
+{{- $sudo := "" }}
+{{- if ne .chezmoi.username "root" }}
+{{- $sudo = "sudo " }}
+{{- end }}
+
+command_exists() { command -v "$1" >/dev/null 2>&1; }
+
+LOCAL_BIN=${LOCAL_BIN:-$HOME/.local/bin}
+mkdir -p $LOCAL_BIN
+export PATH="$LOCAL_BIN:$PATH"
+GH_PXY=${GH_PXY:-}
+GH_TKN={{ gopassRaw "github/api-token/https" }}
+
+: << 'EOF_COMMENT'
+2025-09-20 22:14:31
+EOF_COMMENT
+
+################################################
+{{ $sudo }}apt-get update
+{{ $sudo }}apt-get install -y \
+    curl wget tree unzip \
+    git \
+    zsh \
+    rsync \
+    htop \
+    jq \
+    gnupg2
+
+# https://github.com/tmux/tmux
+{{ $sudo }}apt-get install -y tmux
+
+# https://github.com/muesli/duf
+{{ $sudo }}apt-get install -y duf
+
+# https://github.com/busyloop/lolcat
+{{ $sudo }}apt-get install -y lolcat
+
+# https://github.com/cmatsuoka/figlet
+{{ $sudo }}apt-get install -y figlet
+
+# Docker
+if ! command_exists docker; then
+  curl -fsSL https://get.docker.com -o install-docker.sh
+  {{ $sudo }}sh install-docker.sh --dry-run
+  rm install-docker.sh
+fi
+
+# https://github.com/jqlang/jq
+# jq-linux-amd64
+_GH_URL=${GH_PXY}https://api.github.com/repos/jqlang/jq/releases/latest
+_GH_FIL=$(curl -L -s -H "Authorization: token $GH_TKN" "$_GH_URL" \
+  | jq -r '.assets[]
+  | select(.name | test("linux.*amd64";"i"))
+  | .browser_download_url')
+_GH_FIL="${_GH_FIL#${GH_PXY}}"
+echo $_GH_FIL
+curl -L -o jq $_GH_FIL
+install -Dm 755 jq -T $LOCAL_BIN/jq
+rm jq
+jq --version
+
+# https://www.passwordstore.org
+# https://github.com/zx2c4/password-store
+{{ $sudo }}apt-get install -y pass
+
+# https://github.com/gopasspw/gopass
+# gopass-1.15.17-linux-amd64.tar.gz
+_GH_URL=${GH_PXY}https://api.github.com/repos/gopasspw/gopass/releases/latest
+_GH_FIL=$(curl -L -s -H "Authorization: token $GH_TKN" "$_GH_URL" \
+  | jq -r '.assets[]
+  | select(.name | test("linux.*amd64.*\\.tar\\.gz$";"i"))
+  | .browser_download_url')
+_GH_FIL="${_GH_FIL#${GH_PXY}}"
+echo $_GH_FIL
+curl -L -o gopass.tar.gz $_GH_FIL
+tar xzf gopass.tar.gz gopass
+install -Dm 755 gopass -T $LOCAL_BIN/gopass
+rm gopass gopass.tar.gz
+gopass --version
+
+# https://atuin.sh/
+# https://github.com/atuinsh/atuin
+# curl --proto '=https' --tlsv1.2 -LsSf https://setup.atuin.sh | sh
+curl --proto '=https' --tlsv1.2 -LsSf https://github.com/atuinsh/atuin/releases/latest/download/atuin-installer.sh | sh
+ATUIN_PATH="$HOME/.atuin/bin"
+export PATH="$ATUIN_PATH:$PATH"
+atuin logout
+atuin login \
+    -u {{ (gopassRaw "atuin" | fromYaml).username | quote }} \
+    -p {{ (gopassRaw "atuin" | fromYaml).password | quote }} \
+    -k {{ (gopassRaw "atuin" | fromYaml).key | quote }}
+atuin status
+atuin --version
+
+# https://github.com/Schniz/fnm
+FNM_PATH="$HOME/.local/share/fnm"
+export PATH="$FNM_PATH:$PATH"
+curl -fsSL https://fnm.vercel.app/install | bash -s -- --install-dir $FNM_PATH --skip-shell
+eval "$(fnm env --use-on-cd --shell bash)"
+fnm ls | awk '{print $2}' | grep -v '^system$' | xargs -n1 fnm uninstall
+fnm install --lts
+npm install -g bun serve pnpm
+node --version
+npm --version
+
+# https://github.com/starship/starship
+# starship-x86_64-unknown-linux-musl.tar.gz
+# curl -sS https://starship.rs/install.sh | sh -s -- --force --bin-dir=$LOCAL_BIN
+_GH_URL=${GH_PXY}https://api.github.com/repos/starship/starship/releases/latest
+_GH_FIL=$(curl -L -s -H "Authorization: token $GH_TKN" "$_GH_URL" \
+  | jq -r '.assets[]
+  | select(.name | test("x86_64.*linux.*musl.*\\.tar\\.gz$";"i"))
+  | .browser_download_url')
+_GH_FIL="${_GH_FIL#${GH_PXY}}"
+echo $_GH_FIL
+curl -L -o starship.tar.gz $_GH_FIL
+tar xzf starship.tar.gz starship
+install -Dm 755 starship -T $LOCAL_BIN/starship
+rm starship starship.tar.gz
+starship --version
+
+# https://github.com/junegunn/fzf
+# fzf-0.65.2-linux_amd64.tar.gz
+_GH_URL=${GH_PXY}https://api.github.com/repos/junegunn/fzf/releases/latest
+_GH_FIL=$(curl -L -s -H "Authorization: token $GH_TKN" "$_GH_URL" \
+  | jq -r '.assets[]
+  | select(.name | test("linux.*amd64.*\\.tar\\.gz$";"i"))
+  | .browser_download_url')
+_GH_FIL="${_GH_FIL#${GH_PXY}}"
+echo $_GH_FIL
+curl -L -o fzf.tar.gz $_GH_FIL
+tar xzf fzf.tar.gz
+install -Dm 755 fzf -T $LOCAL_BIN/fzf
+rm fzf fzf.tar.gz
+fzf --version
+
+# https://github.com/sharkdp/fd
+# fd-v10.3.0-x86_64-unknown-linux-musl.tar.gz
+_GH_URL=${GH_PXY}https://api.github.com/repos/sharkdp/fd/releases/latest
+_GH_FIL=$(curl -L -s -H "Authorization: token $GH_TKN" "$_GH_URL" \
+  | jq -r '.assets[]
+  | select(.name | test("x86_64.*linux.*musl.*\\.tar\\.gz$";"i"))
+  | .browser_download_url')
+_GH_FIL="${_GH_FIL#${GH_PXY}}"
+_GH_PTH=$(basename $_GH_FIL)
+echo $_GH_FIL
+curl -L -o fd.tar.gz $_GH_FIL
+tar xzf fd.tar.gz --strip-components=1 ${_GH_PTH%.tar.gz}/fd
+install -Dm 755 fd -T $LOCAL_BIN/fd
+rm fd fd.tar.gz
+fd --version
+
+# https://github.com/sharkdp/bat
+# bat-v0.25.0-x86_64-unknown-linux-musl.tar.gz
+_GH_URL=${GH_PXY}https://api.github.com/repos/sharkdp/bat/releases/latest
+_GH_FIL=$(curl -L -s -H "Authorization: token $GH_TKN" "$_GH_URL" \
+  | jq -r '.assets[]
+  | select(.name | test("x86_64.*linux.*musl.*\\.tar\\.gz$";"i"))
+  | .browser_download_url')
+_GH_FIL="${_GH_FIL#${GH_PXY}}"
+_GH_PTH=$(basename $_GH_FIL)
+echo $_GH_FIL
+curl -L -o bat.tar.gz $_GH_FIL
+tar xzf bat.tar.gz --strip-components=1 ${_GH_PTH%.tar.gz}/bat
+install -Dm 755 bat -T $LOCAL_BIN/bat
+rm bat bat.tar.gz
+bat --version
+
+# https://github.com/eza-community/eza
+# eza_x86_64-unknown-linux-musl.tar.gz
+_GH_URL=${GH_PXY}https://api.github.com/repos/eza-community/eza/releases/latest
+_GH_FIL=$(curl -L -s -H "Authorization: token $GH_TKN" "$_GH_URL" \
+  | jq -r '.assets[]
+  | select(.name | test("x86_64.*linux.*musl.*\\.tar\\.gz$";"i"))
+  | .browser_download_url')
+_GH_FIL="${_GH_FIL#${GH_PXY}}"
+echo $_GH_FIL
+curl -L -o eza.tar.gz $_GH_FIL
+tar xzf eza.tar.gz
+install -Dm 755 eza -T $LOCAL_BIN/eza
+rm eza eza.tar.gz
+eza --version
+
+# https://github.com/fastfetch-cli/fastfetch
+# fastfetch-linux-amd64.tar.gz
+_GH_URL=${GH_PXY}https://api.github.com/repos/fastfetch-cli/fastfetch/releases/latest
+_GH_FIL=$(curl -L -s -H "Authorization: token $GH_TKN" "$_GH_URL" \
+  | jq -r '.assets[]
+  | select(.name | test("linux.*amd64.*\\.tar\\.gz$";"i"))
+  | .browser_download_url')
+_GH_FIL="${_GH_FIL#${GH_PXY}}"
+_GH_PTH=$(basename $_GH_FIL)
+echo $_GH_FIL
+curl -L -o fastfetch.tar.gz $_GH_FIL
+tar xzf fastfetch.tar.gz --strip-components=3 ${_GH_PTH%.tar.gz}/usr/bin/fastfetch
+install -Dm 755 fastfetch -T $LOCAL_BIN/fastfetch
+rm fastfetch fastfetch.tar.gz
+fastfetch --version
+
+# https://asciinema.org
+# https://github.com/asciinema/asciinema
+# asciinema-x86_64-unknown-linux-musl
+_GH_URL=${GH_PXY}https://api.github.com/repos/asciinema/asciinema/releases/latest
+_GH_FIL=$(curl -L -s -H "Authorization: token $GH_TKN" "$_GH_URL" \
+  | jq -r '.assets[]
+  | select(.name | test("x86_64.*linux.*musl$";"i"))
+  | .browser_download_url')
+_GH_FIL="${_GH_FIL#${GH_PXY}}"
+echo $_GH_FIL
+curl -L -o asciinema $_GH_FIL
+install -Dm 755 asciinema -T $LOCAL_BIN/asciinema
+rm asciinema
+asciinema --version
+
+# https://docs.asciinema.org/manual/agg
+# https://github.com/asciinema/agg
+# agg-x86_64-unknown-linux-musl
+_GH_URL=${GH_PXY}https://api.github.com/repos/asciinema/agg/releases/latest
+_GH_FIL=$(curl -L -s -H "Authorization: token $GH_TKN" "$_GH_URL" \
+  | jq -r '.assets[]
+  | select(.name | test("x86_64.*linux.*musl$";"i"))
+  | .browser_download_url')
+_GH_FIL="${_GH_FIL#${GH_PXY}}"
+echo $_GH_FIL
+curl -L -o agg $_GH_FIL
+install -Dm 755 agg -T $LOCAL_BIN/agg
+rm agg
+agg --version
+
+# https://github.com/jesseduffield/lazydocker
+# lazydocker_0.24.1_Linux_x86_64.tar.gz
+_GH_URL=${GH_PXY}https://api.github.com/repos/jesseduffield/lazydocker/releases/latest
+_GH_FIL=$(curl -L -s -H "Authorization: token $GH_TKN" "$_GH_URL" \
+  | jq -r '.assets[]
+  | select(.name | test("linux.*x86_64.*\\.tar\\.gz$";"i"))
+  | .browser_download_url')
+_GH_FIL="${_GH_FIL#${GH_PXY}}"
+echo $_GH_FIL
+curl -L -o lazydocker.tar.gz $_GH_FIL
+tar xzf lazydocker.tar.gz lazydocker
+install -Dm 755 lazydocker -T $LOCAL_BIN/lazydocker
+rm lazydocker lazydocker.tar.gz
+lazydocker --version
+
+# https://github.com/jesseduffield/lazygit
+# lazygit_0.55.0_linux_x86_64.tar.gz
+_GH_URL=${GH_PXY}https://api.github.com/repos/jesseduffield/lazygit/releases/latest
+_GH_FIL=$(curl -L -s -H "Authorization: token $GH_TKN" "$_GH_URL" \
+  | jq -r '.assets[]
+  | select(.name | test("linux.*x86_64.*\\.tar\\.gz$";"i"))
+  | .browser_download_url')
+_GH_FIL="${_GH_FIL#${GH_PXY}}"
+echo $_GH_FIL
+curl -L -o lazygit.tar.gz $_GH_FIL
+tar xzf lazygit.tar.gz lazygit
+install -Dm 755 lazygit -T $LOCAL_BIN/lazygit
+rm lazygit lazygit.tar.gz
+lazygit --version
+
+# https://github.com/jarun/nnn
+# nnn-static-5.1.x86_64.tar.gz
+_GH_URL=${GH_PXY}https://api.github.com/repos/jarun/nnn/releases/latest
+_GH_FIL=$(curl -L -s -H "Authorization: token $GH_TKN" "$_GH_URL" \
+  | jq -r '.assets[]
+  | select(.name | test("nnn-static.*x86_64.*\\.tar\\.gz$";"i"))
+  | .browser_download_url')
+_GH_FIL="${_GH_FIL#${GH_PXY}}"
+echo $_GH_FIL
+curl -L -o nnn-static.tar.gz $_GH_FIL
+tar xzf nnn-static.tar.gz
+install -Dm 755 nnn-static -T $LOCAL_BIN/nnn-static
+ln -sf $LOCAL_BIN/nnn-static $LOCAL_BIN/nnn
+rm nnn-static nnn-static.tar.gz
+nnn -V
+
+# https://github.com/gokcehan/lf
+# lf-linux-amd64.tar.gz
+_GH_URL=${GH_PXY}https://api.github.com/repos/gokcehan/lf/releases/latest
+_GH_FIL=$(curl -L -s -H "Authorization: token $GH_TKN" "$_GH_URL" \
+  | jq -r '.assets[]
+  | select(.name | test("linux.*amd64.*\\.tar\\.gz$";"i"))
+  | .browser_download_url')
+_GH_FIL="${_GH_FIL#${GH_PXY}}"
+echo $_GH_FIL
+curl -L -o lf.tar.gz $_GH_FIL
+tar xzf lf.tar.gz lf
+install -Dm 755 lf -T $LOCAL_BIN/lf
+rm lf lf.tar.gz
+lf --version
+
+# https://github.com/tldr-pages/tldr
+# https://github.com/tealdeer-rs/tealdeer
+# tealdeer-linux-x86_64-musl
+_GH_URL=${GH_PXY}https://api.github.com/repos/tealdeer-rs/tealdeer/releases/latest
+_GH_FIL=$(curl -L -s -H "Authorization: token $GH_TKN" "$_GH_URL" \
+  | jq -r '.assets[]
+  | select(.name | test("linux.*x86_64.*musl$";"i"))
+  | .browser_download_url')
+_GH_FIL="${_GH_FIL#${GH_PXY}}"
+echo $_GH_FIL
+curl -L -o tldr $_GH_FIL
+install -Dm 755 tldr -T $LOCAL_BIN/tldr
+rm tldr
+tldr --version
+
+# https://github.com/charmbracelet/glow
+# glow_2.1.1_Linux_x86_64.tar.gz
+_GH_URL=${GH_PXY}https://api.github.com/repos/charmbracelet/glow/releases/latest
+_GH_FIL=$(curl -L -s -H "Authorization: token $GH_TKN" "$_GH_URL" \
+  | jq -r '.assets[]
+  | select(.name | test("linux.*x86_64.*\\.tar\\.gz$";"i"))
+  | .browser_download_url')
+_GH_FIL="${_GH_FIL#${GH_PXY}}"
+_GH_PTH=$(basename $_GH_FIL)
+echo $_GH_FIL
+curl -L -o glow.tar.gz $_GH_FIL
+tar xzf glow.tar.gz --strip-components=1 ${_GH_PTH%.tar.gz}/glow
+install -Dm 755 glow -T $LOCAL_BIN/glow
+rm glow glow.tar.gz
+glow --version
+
+# https://github.com/chubin/cheat.sh
+{{ $sudo }}apt-get install -y xsel rlwrap
+curl -L -o cht.sh https://cht.sh/:cht.sh
+install -Dm 755 cht.sh -T $LOCAL_BIN/cht.sh
+rm cht.sh
+
+# ffmpeg
+_GH_URL=https://github.com/BtbN/FFmpeg-Builds/releases/download/latest/
+_GH_FIL=ffmpeg-master-latest-linux64-gpl.tar.xz
+echo $_GH_URL$_GH_FIL
+curl -L -o ffmpeg.tar.xz $_GH_URL$_GH_FIL
+tar xf ffmpeg.tar.xz --strip-components=2 \
+    ${_GH_FIL%.tar.xz}/bin/ffmpeg \
+    ${_GH_FIL%.tar.xz}/bin/ffprobe \
+    ${_GH_FIL%.tar.xz}/bin/ffplay
+install -Dm 755 ffmpeg -T $LOCAL_BIN/ffmpeg
+install -Dm 755 ffprobe -T $LOCAL_BIN/ffprobe
+install -Dm 755 ffplay -T $LOCAL_BIN/ffplay
+rm ffmpeg ffprobe ffplay ffmpeg.tar.xz
+ffmpeg -version
+
+{{- end -}}

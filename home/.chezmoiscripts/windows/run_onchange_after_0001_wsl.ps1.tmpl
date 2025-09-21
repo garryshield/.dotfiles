@@ -1,0 +1,64 @@
+{{-/* chezmoi:template:encoding=utf-8-bom */-}}
+
+{{- if not .config.windows.wsl.enable }}
+Exit
+{{- end }}
+
+Write-Host "[Script $($PSVersionTable.PSEdition)] run_onchange_after_0001_wsl.ps1.tmpl"
+
+{{ template "windows/utils.ps1.tmpl" . }}
+
+################################################
+# if (Test-RebootNeeded) {
+#    Write-Host "Reboot Needed..."
+#    Restart-Computer -Force
+# }
+
+wsl --install --no-distribution
+wsl --update
+
+$list = @(
+{{- range $itm := .config.windows.wsl.list }}
+@"
+{{ $itm | toPrettyJson }}
+"@ | ConvertFrom-Json
+{{- end }}
+)
+
+foreach ($itm in $list) {
+  Write-Host "Install WSL [$($itm.name)]..."
+  $_ = Get-WslDistribution -Name $($itm.name)
+  if ($_) {
+    Write-Host "$($itm.name) alerdy exists."
+    continue
+  }
+
+  $location = "{{ .config.windows.wsl.location }}\$($itm.name)"
+  wsl --install $($itm.base) --name $($itm.name) --location $($location) --no-launch
+  # wsl --install Debian --name Debian-Base --location C:\wsl\Debian-Base --no-launch
+
+  $wslConfFil = "\\wsl.localhost\$($itm.name)\etc\wsl.conf"
+  $fstabFil = "\\wsl.localhost\$($itm.name)\etc\fstab"
+  $wslShFil = "\\wsl.localhost\$($itm.name)\wsl.sh"
+
+  $wslConfStr = @"
+{{ template "windows/wsl.conf.tmpl" . }}
+"@
+  $wslConfIni = Import-Ini -InputString $wslConfStr
+  $wslConfIni.network.hostname = $($itm.name)
+  $wslConfIni.user.default = "{{ .config.windows.wsl.username }}"
+  Export-Ini -InputObject $wslConfIni -Path $wslConfFil
+
+  $fstabStr = @'
+{{ joinPath .chezmoi.sourceDir ".chezmoitemplates/windows/wsl.fstab.gpg" | include | decrypt}}
+'@
+  $fstabStr | Set-Content -Path $fstabFil -Force -NoNewline
+
+  $wslShStr = @'
+{{ template "windows/wsl.sh.tmpl" . }}
+'@
+  $wslShStr | Set-Content -Path $wslShFil -Force -NoNewline
+  wsl ~ --distribution $($itm.name) --user root bash -ic "chmod +x /wsl.sh;/wsl.sh;rm -rf /wsl.sh;"
+}
+
+wsl --list --verbose

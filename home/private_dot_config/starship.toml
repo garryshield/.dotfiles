@@ -1,0 +1,13 @@
+"$schema" = 'https://starship.rs/config-schema.json'
+
+add_newline = false
+# palette = "dracula"
+
+[palettes.dracula]
+
+[username]
+show_always = true
+
+[hostname]
+ssh_only = false
+style = "bold green"
