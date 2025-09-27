@@ -55,8 +55,6 @@ chezmoi apply
 
 ## Windows
 Microsoft.WindowsTerminal
-https://github.com/microsoft/terminal
-
 ```bash
 ~\AppData\Local\Packages\Microsoft.WindowsTerminal_8wekyb3d8bbwe\LocalState\settings.json
 ```
