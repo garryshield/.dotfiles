@@ -54,24 +54,11 @@ chezmoi apply
 ```
 
 ## Windows
-windows.terminal
+Microsoft.WindowsTerminal
+https://github.com/microsoft/terminal
+
+```bash
 ~\AppData\Local\Packages\Microsoft.WindowsTerminal_8wekyb3d8bbwe\LocalState\settings.json
-
-PSModulePath
-```ps1
-# pwsh
-$Env:PSModulePath -split ';'
-~\Documents\PowerShell\Modules
-C:\Program Files\PowerShell\Modules
-c:\program files\powershell\7\Modules
-C:\Program Files\WindowsPowerShell\Modules
-C:\WINDOWS\system32\WindowsPowerShell\v1.0\Modules
-
-# powershell
-$Env:PSModulePath -split ';'
-~\Documents\WindowsPowerShell\Modules
-C:\Program Files\WindowsPowerShell\Modules
-C:\WINDOWS\system32\WindowsPowerShell\v1.0\Modules
 ```
 
 PROFILE
@@ -91,6 +78,23 @@ AllUsersCurrentHost    : C:\Windows\System32\WindowsPowerShell\v1.0\Microsoft.Po
 CurrentUserAllHosts    : ~\Documents\WindowsPowerShell\profile.ps1
 CurrentUserCurrentHost : ~\Documents\WindowsPowerShell\Microsoft.PowerShell_profile.ps1
 Length                 : 75
+```
+
+PSModulePath
+```ps1
+# pwsh
+$Env:PSModulePath -split ';'
+~\Documents\PowerShell\Modules
+C:\Program Files\PowerShell\Modules
+c:\program files\powershell\7\Modules
+C:\Program Files\WindowsPowerShell\Modules
+C:\WINDOWS\system32\WindowsPowerShell\v1.0\Modules
+
+# powershell
+$Env:PSModulePath -split ';'
+~\Documents\WindowsPowerShell\Modules
+C:\Program Files\WindowsPowerShell\Modules
+C:\WINDOWS\system32\WindowsPowerShell\v1.0\Modules
 ```
 
 Env
