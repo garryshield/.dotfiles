@@ -1,6 +1,6 @@
-[".oh-my-bash"]
+[".config/tmux/plugins/tpm"]
     type = "archive"
-    url = "https://github.com/ohmybash/oh-my-bash/archive/master.tar.gz"
+    url = "https://github.com/tmux-plugins/tpm/archive/master.tar.gz"
     exact = true
     refreshPeriod = "168h"
     stripComponents = 1

@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # 前景色： \033[<FG>m
 # 背景色： \033[<BG>m

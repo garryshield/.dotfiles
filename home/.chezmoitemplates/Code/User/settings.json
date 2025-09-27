@@ -32,6 +32,7 @@
   "editor.linkedEditing": true,
   "editor.minimap.enabled": false,
   "editor.rulers": [
+    60,
     80,
     100,
     120,

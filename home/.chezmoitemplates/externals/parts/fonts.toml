@@ -11,10 +11,10 @@
     type = "archive"
     url = "https://github.com/ryanoasis/nerd-fonts/releases/latest/download/CascadiaMono.zip"
     exact = true
-    refreshPeriod = "24h"
+    refreshPeriod = "168h"
 
 ["{{ $fontDir }}/Monaspace"]
     type = "archive"
     url = "https://github.com/ryanoasis/nerd-fonts/releases/latest/download/Monaspace.zip"
     exact = true
-    refreshPeriod = "24h"
+    refreshPeriod = "168h"

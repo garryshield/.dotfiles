@@ -1,2 +1,4 @@
 [mounts]
 	path = {{ joinPath .chezmoi.homeDir ".password-store" }}
+[core]
+	exportkeys = false

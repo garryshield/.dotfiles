@@ -7,7 +7,9 @@ add_newline = false
 
 [username]
 show_always = true
+style_root = "bold red"
+style_user = 'bold yellow'
 
 [hostname]
 ssh_only = false
-style = "bold green"
+style =	'bold green'

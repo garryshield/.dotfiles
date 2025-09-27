@@ -187,12 +187,43 @@ install -Dm 755 eza -T $LOCAL_BIN/eza
 rm eza eza.tar.gz
 eza --version
 
+# https://github.com/BurntSushi/ripgrep
+# ripgrep-14.1.1-x86_64-unknown-linux-musl.tar.gz
+_GH_URL=${GH_PXY}https://api.github.com/repos/BurntSushi/ripgrep/releases/latest
+_GH_FIL=$(curl -L -s -H "Authorization: token $GH_TKN" "$_GH_URL" \
+  | jq -r '.assets[]
+  | select(.name | test("x86_64.*linux.*musl.*\\.tar\\.gz$";"i"))
+  | .browser_download_url')
+_GH_FIL="${_GH_FIL#${GH_PXY}}"
+_GH_PTH=$(basename $_GH_FIL)
+echo $_GH_FIL
+curl -L -o ripgrep.tar.gz $_GH_FIL
+tar xzf ripgrep.tar.gz --strip-components=1 ${_GH_PTH%.tar.gz}/rg
+install -Dm 755 rg -T $LOCAL_BIN/rg
+rm rg ripgrep.tar.gz
+rg --version
+
+# https://github.com/ajeetdsouza/zoxide
+# zoxide-0.9.8-x86_64-unknown-linux-musl.tar.gz
+_GH_URL=${GH_PXY}https://api.github.com/repos/ajeetdsouza/zoxide/releases/latest
+_GH_FIL=$(curl -L -s -H "Authorization: token $GH_TKN" "$_GH_URL" \
+  | jq -r '.assets[]
+  | select(.name | test("x86_64.*linux.*musl.*\\.tar\\.gz$";"i"))
+  | .browser_download_url')
+_GH_FIL="${_GH_FIL#${GH_PXY}}"
+echo $_GH_FIL
+curl -L -o zoxide.tar.gz $_GH_FIL
+tar xzf zoxide.tar.gz zoxide
+install -Dm 755 zoxide -T $LOCAL_BIN/zoxide
+rm zoxide zoxide.tar.gz
+zoxide --version
+
 # https://github.com/fastfetch-cli/fastfetch
 # fastfetch-linux-amd64.tar.gz
 _GH_URL=${GH_PXY}https://api.github.com/repos/fastfetch-cli/fastfetch/releases/latest
 _GH_FIL=$(curl -L -s -H "Authorization: token $GH_TKN" "$_GH_URL" \
   | jq -r '.assets[]
-  | select(.name | test("linux.*amd64.*\\.tar\\.gz$";"i"))
+  | select(.name | test("linux.*amd64\\.tar\\.gz$";"i"))
   | .browser_download_url')
 _GH_FIL="${_GH_FIL#${GH_PXY}}"
 _GH_PTH=$(basename $_GH_FIL)

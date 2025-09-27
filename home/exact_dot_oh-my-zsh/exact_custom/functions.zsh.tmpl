@@ -1,0 +1,11 @@
+{{- if eq .chezmoi.os "darwin" -}}
+cc-re-add() {
+  chezmoi forget --force ~/Library/Preferences/com.apple.Terminal.plist
+  chezmoi add ~/Library/Preferences/com.apple.Terminal.plist
+
+  chezmoi forget --force ~/Library/Preferences/com.googlecode.iterm2.plist
+  chezmoi add ~/Library/Preferences/com.googlecode.iterm2.plist
+
+  cat ~/Library/Application\ Support/Code/User/settings.json > $(chezmoi source-path)/.chezmoitemplates/Code/User/settings.json
+}
+{{- end }}

@@ -12,7 +12,7 @@ let width = 20;
 let height = 20;
 
 const cols = await Bun.$`tput cols`.text()*1;
-width = Math.floor(cols / 3);
+width = Math.floor(cols / 4);
 height = width;
 
 await Bun.write(Bun.stdout, '\n');

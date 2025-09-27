@@ -1,26 +1,28 @@
 param(
+  [string]$PublicKey,
   [string]$PrivateKey,
-  [string]$PublicKey
+  [string]$PasswordStore,
 )
 
 function Show-Usage {
-    Write-Host "Usage: install.ps1 -PrivateKey <PrivateKey> -PublicKey <PublicKey>"
-    Write-Host "Both PrivateKey and PublicKey are required."
+    Write-Host "Usage: install.ps1 -PublicKey <PublicKey> -PrivateKey <PrivateKey> -PasswordStore <PasswordStore>"
+    Write-Host "Both PublicKey and PrivateKey and PasswordStore are required."
     Exit 1
 }
 
 # 确保 PublicKey 和 PrivateKey 变量已设置
-if (-not $PrivateKey -or -not $PublicKey) {
+if (-not $PublicKey -or -not $PrivateKey -or -not $PasswordStore) {
     Show-Usage
 }
 
 # 检查 PublicKey 和 PrivateKey 是否存在
-if (-not (Test-Path $PrivateKey) -or -not (Test-Path $PublicKey)) {
+if (-not (Test-Path $PublicKey) -or -not (Test-Path $PrivateKey)) {
     Show-Usage
 }
 
-Write-Host "GPG Private key file: $PrivateKey"
 Write-Host "GPG Public key file: $PublicKey"
+Write-Host "GPG Private key file: $PrivateKey"
+Write-Host "Password Store: $PasswordStore"
 
 function ReloadEnvPath() {
   param(
@@ -97,6 +99,6 @@ gpg --list-secret-keys --keyid-format long
 # 克隆密码存储库
 $PASSWORD_STORE="$Env:USERPROFILE\.password-store"
 if (-not (Test-Path $PASSWORD_STORE)) {
-    git clone https://github.com/garryshield/.password-store.git $PASSWORD_STORE
+    git clone $PasswordStore $PASSWORD_STORE
     gopass show xxx
 }

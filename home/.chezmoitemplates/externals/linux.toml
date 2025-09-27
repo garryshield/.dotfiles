@@ -4,5 +4,6 @@
 
 {{ template "externals/parts/oh-my-zsh.toml" . }}
 {{ template "externals/parts/oh-my-bash.toml" . }}
+{{ template "externals/parts/tmux.toml" . }}
 
 {{ template "externals/parts/fonts.toml" . }}

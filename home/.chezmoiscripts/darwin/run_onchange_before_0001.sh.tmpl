@@ -55,6 +55,8 @@ fi
     "fd"
     "bat"
     "eza"
+    "ripgrep"
+    "zoxide"
     "fastfetch"
     "asciinema"
     "agg"
@@ -64,10 +66,28 @@ fi
     "lf"
     "tealdeer"
     "glow"
-}}
+-}}
+
+{{ 
+  $casks := list 
+    "iterm2"
+    "visual-studio-code"
+    "kitty"
+-}}
+
+{{- if true -}}
+{{- $brews = concat $brews (list
+) -}}
+{{ $casks = concat $casks (list
+) -}}
+{{- end -}}
+
 brew bundle --file=/dev/stdin <<EOF
 {{ range ($brews | sortAlpha | uniq) -}}
 brew "{{ . }}"
+{{ end -}}
+{{ range ($casks | sortAlpha | uniq) -}}
+cask "{{ . }}"
 {{ end -}}
 EOF
 

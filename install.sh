@@ -2,19 +2,23 @@
 set -euo pipefail
 
 usage() {
-    echo "Usage: install.sh --private-key <PrivateKey> --public-key <PublicKey>"
-    echo "Both PrivateKey and PublicKey are required."
+    echo "Usage: install.sh --public-key <PublicKey> --private-key <PrivateKey> --password-store <PasswordStore>"
+    echo "Both PublicKey and PrivateKey and PasswordStore are required."
     exit 1
 }
 
 while [[ $# -gt 0 ]]; do
     case "$1" in
+        --public-key)
+            PublicKey="$2"
+            shift 2
+            ;;
         --private-key)
             PrivateKey="$2"
             shift 2
             ;;
-        --public-key)
-            PublicKey="$2"
+        --password-store)
+            PasswordStore="$2"
             shift 2
             ;;
         *)
@@ -24,7 +28,7 @@ while [[ $# -gt 0 ]]; do
 done
 
 # 确保 PublicKey 和 PrivateKey 变量已设置
-if [ -z "${PublicKey+x}" ] || [ -z "${PrivateKey+x}" ]; then
+if [ -z "${PublicKey+x}" ] || [ -z "${PrivateKey+x}" ] || [ -z "${PasswordStore+x}" ]; then
     usage
 fi
 
@@ -33,8 +37,9 @@ if [[ ! -e "$PublicKey" || ! -e "$PrivateKey" ]]; then
     usage
 fi
 
-echo "GPG Private key file: $PrivateKey"
 echo "GPG Public key file: $PublicKey"
+echo "GPG Private key file: $PrivateKey"
+echo "Password Store: $PasswordStore"
 
 command_exists() { command -v "$1" >/dev/null 2>&1; }
 
@@ -96,6 +101,6 @@ gpg --list-secret-keys --keyid-format long
 # 克隆密码存储库
 PASSWORD_STORE="$HOME/.password-store"
 if [ ! -d "$PASSWORD_STORE" ]; then
-  git clone https://github.com/garryshield/.password-store.git "$PASSWORD_STORE"
+  git clone "$PasswordStore" "$PASSWORD_STORE"
   gopass show xxx
 fi
