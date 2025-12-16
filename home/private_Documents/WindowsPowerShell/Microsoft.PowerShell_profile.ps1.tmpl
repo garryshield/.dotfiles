@@ -2,31 +2,58 @@
 
 {{ template "windows/utils.ps1.tmpl" . }}
 
+$Env:HOME = $Env:USERPROFILE
 $Env:SHELL = (Get-Process -Id $PID).ProcessName
 
-################################################
+####
 # PsReadLine
 $PSReadLineOptions = @{
   EditMode              = "Emacs"
   PredictionViewStyle   = "ListView"
+  Colors                = @{
+                        }
 }
 Set-PSReadLineOption @PSReadLineOptions
 
-################################################
-# Alias
-
-################################################
-# Fastfetch
-fastfetch
-
-################################################
+####
 # oh-my-posh
-oh-my-posh init $Env:SHELL --config "$Env:USERPROFILE/.oh-my-posh/themes/onehalf.minimal.omp.json" | Invoke-Expression
+oh-my-posh init $Env:SHELL --config "$Env:USERPROFILE\.oh-my-posh\themes\onehalf.minimal.omp.json" | Invoke-Expression
 
-################################################
-# Starship
+####
+# fzf
+$Env:FZF_DEFAULT_COMMAND = "" 
+$Env:FZF_DEFAULT_OPTS = ""
+$Env:FZF_DEFAULT_OPTS_FILE = "$Env:USERPROFILE\.fzfrc"
+
+####
+# starship
 Invoke-Expression (&starship init powershell)
 
-################################################
-# fzf
-$Env:FZF_DEFAULT_OPTS_FILE = "$Env:USERPROFILE/.fzfrc"
+####
+# zoxide
+$Env:_ZO_DATA_DIR = "$Env:USERPROFILE\.local\share\zoxide"
+$Env:_ZO_FZF_OPTS = ""
+Invoke-Expression (& { (zoxide init powershell | Out-String) })
+
+####
+# fnm
+fnm env --use-on-cd --shell powershell | Out-String | Invoke-Expression
+
+####
+# fastfetch
+fastfetch
+
+####
+# tealdeer
+$Env:TEALDEER_CONFIG_DIR = "$Env:USERPROFILE\.config\tealdeer\"
+
+####
+# bat
+$Env:BAT_CONFIG_DIR = "$Env:USERPROFILE\.config\bat\"
+
+####
+# gopass
+# $Env:GOPASS_DEBUG = "true"
+# $Env:GOPASS_DEBUG_VERBOSE = 1
+$Env:GOPASS_HOMEDIR = "$Env:USERPROFILE"
+$Env:GOPASS_CONFIG = ".config\gopass\config"

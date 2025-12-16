@@ -1,7 +1,7 @@
-param(
+﻿param(
   [string]$PublicKey,
   [string]$PrivateKey,
-  [string]$PasswordStore,
+  [string]$PasswordStore
 )
 
 function Show-Usage {
@@ -34,42 +34,38 @@ function ReloadEnvPath() {
   $Env:Path = ($machinePath + ";" + $userPath + ";" + ($Add -join ";")).TrimEnd(';')
 }
 
-Write-Host "Install [chezmoi]..."
-
 $LOCAL_BIN = "$Env:USERPROFILE\.local\bin"
 New-Item -ItemType Directory -Path $LOCAL_BIN -Force | Out-Null
 ReloadEnvPath -Add @("$LOCAL_BIN")
 $chezmoi = Join-Path $LOCAL_BIN "chezmoi.exe"
 
+################################################
 if (-not (Get-Command "chezmoi" -ErrorAction SilentlyContinue)) {
+  Write-Host "install chezmoi."
   # 从官方脚本下载安装 chezmoi 到 $LOCAL_BIN
   Invoke-Expression "& { $(Invoke-RestMethod 'https://get.chezmoi.io/ps1') } -b '$LOCAL_BIN'"
 
   # 更新回话 PATH
   $Env:Path = "$LOCAL_BIN;$Env:Path"
-
   # 更新用户 PATH
   $path0 = @($LOCAL_BIN)
   $path1 = [System.Environment]::GetEnvironmentVariable("Path", "User") -split ";"
   $path2 = (($path0 + $path1) | Sort-Object -Unique) -join ";"
   [System.Environment]::SetEnvironmentVariable("Path", $path2, "User")
-
-  Write-Host "chezmoi: installed successfully."
 }
 else {
-  Write-Host "chezmoi: already installed. try upgrade..."
+  Write-Host "upgrade chezmoi"
   & $chezmoi upgrade
 }
-
 Write-Host "chezmoi: $(& $chezmoi --version)"
 
 ################################################
 $apps = @(
-  "Microsoft.WindowsTerminal",
-  "Microsoft.PowerShell",
   "Git.Git",
   "GnuPG.GnuPG",
-  "gopass.gopass"
+  "gopass.gopass",
+  "Microsoft.WindowsTerminal",
+  "Microsoft.PowerShell"
 )
 foreach ($itm in $apps) {
   Write-Host "Install App [$itm]..."
@@ -97,8 +93,12 @@ gpg --list-secret-keys --keyid-format long
 
 ################################################
 # 克隆密码存储库
+git config --global credential.helper store
 $PASSWORD_STORE="$Env:USERPROFILE\.password-store"
 if (-not (Test-Path $PASSWORD_STORE)) {
-    git clone $PasswordStore $PASSWORD_STORE
-    gopass show xxx
+  git clone $PasswordStore $PASSWORD_STORE
+}
+if (Test-Path $PASSWORD_STORE) {
+  gopass config mounts.path "$PASSWORD_STORE"
+  gopass --nosync ls
 }

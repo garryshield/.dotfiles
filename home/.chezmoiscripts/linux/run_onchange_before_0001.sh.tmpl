@@ -4,52 +4,53 @@ set -euo pipefail
 
 echo "[Script] run_onchange_before_0001.sh.tmpl"
 
+command_exists() {
+	command -v "$@" >/dev/null 2>&1
+}
+
+is_linux() {
+	[[ "$(uname -s)" == "Linux" ]]
+}
+
+is-debian() {
+	[[ -f /etc/os-release ]] && grep -qi '^ID=debian' /etc/os-release
+}
+
 {{- $sudo := "" }}
 {{- if ne .chezmoi.username "root" }}
 {{- $sudo = "sudo " }}
 {{- end }}
 
-command_exists() { command -v "$1" >/dev/null 2>&1; }
-
 LOCAL_BIN=${LOCAL_BIN:-$HOME/.local/bin}
 mkdir -p $LOCAL_BIN
 export PATH="$LOCAL_BIN:$PATH"
 GH_PXY=${GH_PXY:-}
-GH_TKN={{ gopassRaw "github/api-token/https" }}
+GH_TKN={{ gopassRaw "github/token/main" }}
 
 : << 'EOF_COMMENT'
 2025-09-20 22:14:31
 EOF_COMMENT
 
 ################################################
+if [ -f /etc/apt/sources.list ]; then
+  {{ $sudo }}sed -i 's/deb.debian.org/mirrors.ustc.edu.cn/g' /etc/apt/sources.list
+fi
+if [ -f /etc/apt/sources.list.d/debian.sources ]; then
+  {{ $sudo }}sed -i 's/deb.debian.org/mirrors.ustc.edu.cn/g' /etc/apt/sources.list.d/debian.sources
+fi
+
 {{ $sudo }}apt-get update
 {{ $sudo }}apt-get install -y \
-    curl wget tree unzip \
-    git \
-    zsh \
-    rsync \
-    htop \
-    jq \
-    gnupg2
-
-# https://github.com/tmux/tmux
-{{ $sudo }}apt-get install -y tmux
-
-# https://github.com/muesli/duf
-{{ $sudo }}apt-get install -y duf
-
-# https://github.com/busyloop/lolcat
-{{ $sudo }}apt-get install -y lolcat
-
-# https://github.com/cmatsuoka/figlet
-{{ $sudo }}apt-get install -y figlet
-
-# Docker
-if ! command_exists docker; then
-  curl -fsSL https://get.docker.com -o install-docker.sh
-  {{ $sudo }}sh install-docker.sh --dry-run
-  rm install-docker.sh
-fi
+  curl wget tree unzip \
+  openssh-server \
+  git \
+  zsh \
+  rsync \
+  htop \
+  jq \
+  gnupg \
+  xz-utils \
+  fontconfig
 
 # https://github.com/jqlang/jq
 # jq-linux-amd64
@@ -84,30 +85,17 @@ install -Dm 755 gopass -T $LOCAL_BIN/gopass
 rm gopass gopass.tar.gz
 gopass --version
 
-# https://atuin.sh/
-# https://github.com/atuinsh/atuin
-# curl --proto '=https' --tlsv1.2 -LsSf https://setup.atuin.sh | sh
-curl --proto '=https' --tlsv1.2 -LsSf https://github.com/atuinsh/atuin/releases/latest/download/atuin-installer.sh | sh
-ATUIN_PATH="$HOME/.atuin/bin"
-export PATH="$ATUIN_PATH:$PATH"
-atuin logout
-atuin login \
-    -u {{ (gopassRaw "atuin" | fromYaml).username | quote }} \
-    -p {{ (gopassRaw "atuin" | fromYaml).password | quote }} \
-    -k {{ (gopassRaw "atuin" | fromYaml).key | quote }}
-atuin status
-atuin --version
+# https://github.com/tmux/tmux
+{{ $sudo }}apt-get install -y tmux
 
-# https://github.com/Schniz/fnm
-FNM_PATH="$HOME/.local/share/fnm"
-export PATH="$FNM_PATH:$PATH"
-curl -fsSL https://fnm.vercel.app/install | bash -s -- --install-dir $FNM_PATH --skip-shell
-eval "$(fnm env --use-on-cd --shell bash)"
-fnm ls | awk '{print $2}' | grep -v '^system$' | xargs -n1 fnm uninstall
-fnm install --lts
-npm install -g bun serve pnpm
-node --version
-npm --version
+# https://github.com/muesli/duf
+{{ $sudo }}apt-get install -y duf
+
+# https://github.com/busyloop/lolcat
+{{ $sudo }}apt-get install -y lolcat
+
+# https://github.com/cmatsuoka/figlet
+{{ $sudo }}apt-get install -y figlet
 
 # https://github.com/starship/starship
 # starship-x86_64-unknown-linux-musl.tar.gz
@@ -124,6 +112,49 @@ tar xzf starship.tar.gz starship
 install -Dm 755 starship -T $LOCAL_BIN/starship
 rm starship starship.tar.gz
 starship --version
+
+# https://github.com/fastfetch-cli/fastfetch
+# fastfetch-linux-amd64.tar.gz
+_GH_URL=${GH_PXY}https://api.github.com/repos/fastfetch-cli/fastfetch/releases/latest
+_GH_FIL=$(curl -L -s -H "Authorization: token $GH_TKN" "$_GH_URL" \
+  | jq -r '.assets[]
+  | select(.name | test("linux.*amd64\\.tar\\.gz$";"i"))
+  | .browser_download_url')
+_GH_FIL="${_GH_FIL#${GH_PXY}}"
+_GH_PTH=$(basename $_GH_FIL)
+echo $_GH_FIL
+curl -L -o fastfetch.tar.gz $_GH_FIL
+tar xzf fastfetch.tar.gz --strip-components=3 ${_GH_PTH%.tar.gz}/usr/bin/fastfetch
+install -Dm 755 fastfetch -T $LOCAL_BIN/fastfetch
+rm fastfetch fastfetch.tar.gz
+fastfetch --version
+
+# https://atuin.sh/
+# https://github.com/atuinsh/atuin
+# curl --proto '=https' --tlsv1.2 -LsSf https://setup.atuin.sh | sh
+curl --proto '=https' --tlsv1.2 -LsSf https://github.com/atuinsh/atuin/releases/latest/download/atuin-installer.sh | sh
+ATUIN_PATH="$HOME/.atuin/bin"
+export PATH="$ATUIN_PATH:$PATH"
+atuin logout
+atuin login \
+  -u {{ (gopassRaw "atuin" | fromYaml).username | quote }} \
+  -p {{ (gopassRaw "atuin" | fromYaml).password | quote }} \
+  -k {{ (gopassRaw "atuin" | fromYaml).key | quote }}
+atuin status
+atuin --version
+
+# https://github.com/Schniz/fnm
+FNM_PATH="$HOME/.local/share/fnm"
+export PATH="$FNM_PATH:$PATH"
+curl -fsSL https://fnm.vercel.app/install | bash -s -- --install-dir $FNM_PATH --skip-shell
+eval "$(fnm env --use-on-cd --shell bash)"
+# fnm ls | awk '{print $2}' | grep -v '^system$' | xargs -n1 fnm uninstall
+fnm install --lts
+npm install -g bun serve pnpm
+node --version
+npm --version
+pnpm --version
+bun --version
 
 # https://github.com/junegunn/fzf
 # fzf-0.65.2-linux_amd64.tar.gz
@@ -218,21 +249,19 @@ install -Dm 755 zoxide -T $LOCAL_BIN/zoxide
 rm zoxide zoxide.tar.gz
 zoxide --version
 
-# https://github.com/fastfetch-cli/fastfetch
-# fastfetch-linux-amd64.tar.gz
-_GH_URL=${GH_PXY}https://api.github.com/repos/fastfetch-cli/fastfetch/releases/latest
+# https://github.com/direnv/direnv
+# direnv.linux-amd64
+_GH_URL=${GH_PXY}https://api.github.com/repos/direnv/direnv/releases/latest
 _GH_FIL=$(curl -L -s -H "Authorization: token $GH_TKN" "$_GH_URL" \
   | jq -r '.assets[]
-  | select(.name | test("linux.*amd64\\.tar\\.gz$";"i"))
+  | select(.name | test("linux.*amd64.*";"i"))
   | .browser_download_url')
 _GH_FIL="${_GH_FIL#${GH_PXY}}"
-_GH_PTH=$(basename $_GH_FIL)
 echo $_GH_FIL
-curl -L -o fastfetch.tar.gz $_GH_FIL
-tar xzf fastfetch.tar.gz --strip-components=3 ${_GH_PTH%.tar.gz}/usr/bin/fastfetch
-install -Dm 755 fastfetch -T $LOCAL_BIN/fastfetch
-rm fastfetch fastfetch.tar.gz
-fastfetch --version
+curl -L -o direnv $_GH_FIL
+install -Dm 755 direnv -T $LOCAL_BIN/direnv
+rm direnv
+direnv --version
 
 # https://asciinema.org
 # https://github.com/asciinema/asciinema
@@ -377,4 +406,16 @@ install -Dm 755 ffplay -T $LOCAL_BIN/ffplay
 rm ffmpeg ffprobe ffplay ffmpeg.tar.xz
 ffmpeg -version
 
+# docker
+if ! command_exists docker; then
+  curl -fsSL https://get.docker.com -o install-docker.sh
+  {{ $sudo }}sh install-docker.sh
+  rm install-docker.sh
+fi
+{{ $sudo }}gpasswd -a $USER docker
+# newgrp docker
+
+#
+gpgconf --kill gpg-agent
+gpgconf --launch gpg-agent
 {{- end -}}

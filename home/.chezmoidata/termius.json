@@ -1,0 +1,1883 @@
+{
+  "termius": {
+    "orders": [
+      "Termius_Dark",
+      "Termius_Light",
+      "Flexoki_Dark",
+      "Flexoki_Light",
+      "Kanagawa_Wave",
+      "Kanagawa_Dragon",
+      "Kanagawa_Lotus",
+      "Hacker_Blue",
+      "Hacker_Green",
+      "Hacker_Red",
+      "Everforest_Dark",
+      "Everforest_Light",
+      "Night_Owl",
+      "Light_Owl",
+      "Aura",
+      "Rosé_Pine",
+      "Rosé_Pine_Moon",
+      "Rosé_Pine_Dawn",
+      "Cobalt2",
+      "Octocat_Dark",
+      "Octocat_Light",
+      "Ayu_Dark",
+      "Ayu_Light",
+      "Cyberpunk",
+      "Cyberpunk_Scarlet",
+      "Romania_Night",
+      "Romania_Day",
+      "Aubergine",
+      "Peach_Fresh",
+      "1984_Dark",
+      "1984_Light",
+      "Winter_Night",
+      "Winter_Day",
+      "Tokyo_Night",
+      "Tokyo_Day",
+      "Catppuccin_Latte",
+      "Catppuccin_Mocha",
+      "Diwali",
+      "Movember",
+      "Atom_One_Dark",
+      "Atom_One_Light",
+      "Halloween",
+      "Dia_De_Muertos",
+      "Gruvbox_Dark",
+      "Gruvbox_Light",
+      "Material_Dark",
+      "Material_Light",
+      "Manhattan",
+      "Plastic_World",
+      "Basic",
+      "Homebrew",
+      "Grass",
+      "Man_Page",
+      "Novel",
+      "Ocean",
+      "Pro",
+      "Red_Sands",
+      "Solarized_Dark",
+      "Solarized_Light",
+      "Silver_Aerogel",
+      "Dracula",
+      "Monokai",
+      "Nord_Light",
+      "Nord_Dark"
+    ],
+    "themes": {
+      "Termius_Dark": {
+        "name": "Termius Dark",
+        "colorPaletteOverrides": [
+          "#343851",
+          "#f24e50",
+          "#008463",
+          "#eca855",
+          "#08639f",
+          "#c13282",
+          "#2091f6",
+          "#e2e3e8",
+          "#8d91a5",
+          "#ff7375",
+          "#3ed7be",
+          "#fdc47d",
+          "#6ba0c3",
+          "#ff7dc5",
+          "#44a7ff",
+          "#ffffff"
+        ],
+        "backgroundColor": "#141729",
+        "cursorColor": "#21b568",
+        "foregroundColor": "#21b568",
+        "selectionColor": "#21b56880",
+        "app": {
+          "terminalUIColor": "#8D91A5"
+        }
+      },
+      "Termius_Light": {
+        "name": "Termius Light",
+        "colorPaletteOverrides": [
+          "#141729",
+          "#f24e50",
+          "#198c51",
+          "#ab6918",
+          "#004878",
+          "#8f3c91",
+          "#2091f6",
+          "#eeeeee",
+          "#3e4257",
+          "#ff7375",
+          "#21b568",
+          "#fdc47d",
+          "#1d6da2",
+          "#ff7dc5",
+          "#44a7ff",
+          "#ffffff"
+        ],
+        "backgroundColor": "#d5dde0",
+        "cursorColor": "#32364a",
+        "foregroundColor": "#32364a",
+        "selectionColor": "#32364a80",
+        "app": {
+          "terminalUIColor": "#6C797E"
+        }
+      },
+      "Flexoki_Dark": {
+        "name": "Flexoki Dark",
+        "colorPaletteOverrides": [
+          "#100f0f",
+          "#af3029",
+          "#66800b",
+          "#ad8301",
+          "#205ea6",
+          "#a02f6f",
+          "#24837b",
+          "#878580",
+          "#6f6e69",
+          "#d14d41",
+          "#879a39",
+          "#d0a215",
+          "#4385be",
+          "#ce5d97",
+          "#3aa99f",
+          "#cecdc3"
+        ],
+        "backgroundColor": "#100f0f",
+        "cursorColor": "#cecdc3",
+        "foregroundColor": "#cecdc3",
+        "selectionColor": "#cecdc3",
+        "app": {
+          "terminalUIColor": "#888781"
+        }
+      },
+      "Flexoki_Light": {
+        "name": "Flexoki Light",
+        "colorPaletteOverrides": [
+          "#100f0f",
+          "#d14d41",
+          "#879a39",
+          "#d0a215",
+          "#4385be",
+          "#ce5d97",
+          "#3aa99f",
+          "#fffcf0",
+          "#6f6e69",
+          "#af3029",
+          "#66800b",
+          "#ad8301",
+          "#205ea6",
+          "#a02f6f",
+          "#24837b",
+          "#f2f0e5"
+        ],
+        "backgroundColor": "#fffcf0",
+        "cursorColor": "#100f0f",
+        "foregroundColor": "#100f0f",
+        "selectionColor": "#cecdc3",
+        "app": {
+          "terminalUIColor": "#878580"
+        }
+      },
+      "Kanagawa_Wave": {
+        "name": "Kanagawa Wave",
+        "colorPaletteOverrides": [
+          "#16161d",
+          "#c34043",
+          "#5d864d",
+          "#c0a36e",
+          "#7e9cd8",
+          "#6f549b",
+          "#6a9589",
+          "#c8c093",
+          "#727169",
+          "#e9585b",
+          "#98bb6c",
+          "#e6c384",
+          "#7fb4ca",
+          "#a18bc4",
+          "#8bc5b9",
+          "#dcd7ba"
+        ],
+        "backgroundColor": "#1f1f28",
+        "cursorColor": "#c8c093",
+        "foregroundColor": "#dcd7ba",
+        "selectionColor": "#d7ba8080",
+        "app": {
+          "terminalUIColor": "#88928a"
+        }
+      },
+      "Kanagawa_Dragon": {
+        "name": "Kanagawa Dragon",
+        "colorPaletteOverrides": [
+          "#0d0c0c",
+          "#c4746e",
+          "#596f44",
+          "#c4b28a",
+          "#8ba4b0",
+          "#9c5f9f",
+          "#5a948f",
+          "#e6e2c7",
+          "#a6a69c",
+          "#e88a83",
+          "#9ccd9c",
+          "#e6c384",
+          "#7fb4ca",
+          "#d7bdd9",
+          "#77c7c0",
+          "#fffad9"
+        ],
+        "backgroundColor": "#181616",
+        "cursorColor": "#c8c093",
+        "foregroundColor": "#c5c9c5",
+        "selectionColor": "#c9c58080",
+        "app": {
+          "terminalUIColor": "#88928a"
+        }
+      },
+      "Kanagawa_Lotus": {
+        "name": "Kanagawa Lotus",
+        "colorPaletteOverrides": [
+          "#1f1f28",
+          "#c84053",
+          "#6f894e",
+          "#cbbc41",
+          "#4871af",
+          "#e56792",
+          "#5fa99c",
+          "#545464",
+          "#555448",
+          "#e65569",
+          "#88a760",
+          "#e5d978",
+          "#6693bf",
+          "#c299ff",
+          "#7cc4b0",
+          "#43436c"
+        ],
+        "backgroundColor": "#f2ecbc",
+        "cursorColor": "#43436c",
+        "foregroundColor": "#545464",
+        "selectionColor": "#54648080",
+        "app": {
+          "terminalUIColor": "#88928a"
+        }
+      },
+      "Hacker_Blue": {
+        "name": "Hacker Blue",
+        "colorPaletteOverrides": [
+          "#1e2644",
+          "#0d7eaf",
+          "#529cbd",
+          "#00608a",
+          "#034765",
+          "#648593",
+          "#7ad6ff",
+          "#d1f1ff",
+          "#2f385a",
+          "#0fbdff",
+          "#6fb7d3",
+          "#43c3f4",
+          "#5cc0e6",
+          "#7ab2c7",
+          "#4dceff",
+          "#fefefe"
+        ],
+        "backgroundColor": "#010515",
+        "cursorColor": "#10b6ff",
+        "foregroundColor": "#11b7ff",
+        "selectionColor": "#c1e4ff80",
+        "app": {
+          "terminalUIColor": "#2c71a4"
+        }
+      },
+      "Hacker_Green": {
+        "name": "Hacker Green",
+        "colorPaletteOverrides": [
+          "#243128",
+          "#14af0d",
+          "#86ce83",
+          "#068a00",
+          "#50be4b",
+          "#4b7649",
+          "#a8f0a4",
+          "#d6fcd4",
+          "#36463b",
+          "#28f11d",
+          "#90e08b",
+          "#4cf443",
+          "#63e65c",
+          "#a8d9a5",
+          "#59ea51",
+          "#fefefe"
+        ],
+        "backgroundColor": "#020f01",
+        "cursorColor": "#15d00d",
+        "foregroundColor": "#16b10e",
+        "selectionColor": "#d4ffc180",
+        "app": {
+          "terminalUIColor": "#2ca43f"
+        }
+      },
+      "Hacker_Red": {
+        "name": "Hacker Red",
+        "colorPaletteOverrides": [
+          "#381313",
+          "#b00d0d",
+          "#5d2020",
+          "#890000",
+          "#be4a4a",
+          "#7a3b3b",
+          "#ff7979",
+          "#ffd2d2",
+          "#993f3f",
+          "#ff1111",
+          "#d26d6d",
+          "#f54242",
+          "#e55b5b",
+          "#c87b7b",
+          "#ff4d4d",
+          "#fefefe"
+        ],
+        "backgroundColor": "#200000",
+        "cursorColor": "#b00d0d",
+        "foregroundColor": "#b10e0e",
+        "selectionColor": "#ebc1ff80",
+        "app": {
+          "terminalUIColor": "#a42c2c"
+        }
+      },
+      "Everforest_Dark": {
+        "name": "Everforest Dark",
+        "colorPaletteOverrides": [
+          "#42494e",
+          "#a1484a",
+          "#778e54",
+          "#ba9e68",
+          "#388084",
+          "#906378",
+          "#6ca37a",
+          "#c0dac6",
+          "#575656",
+          "#e67e80",
+          "#a7c080",
+          "#dbbc7f",
+          "#7fbbb3",
+          "#d699b6",
+          "#83c092",
+          "#e8f4eb"
+        ],
+        "backgroundColor": "#282e32",
+        "cursorColor": "#d3c6aa",
+        "foregroundColor": "#d3c6aa",
+        "selectionColor": "#d3c6aa80",
+        "app": {
+          "terminalUIColor": "#88928A"
+        }
+      },
+      "Everforest_Light": {
+        "name": "Everforest Light",
+        "colorPaletteOverrides": [
+          "#42494e",
+          "#d2413e",
+          "#919d45",
+          "#d89902",
+          "#2b7ba7",
+          "#bc72a5",
+          "#50b08c",
+          "#c8d0c9",
+          "#575656",
+          "#e67e80",
+          "#a7c080",
+          "#dbbc7f",
+          "#7fbbb3",
+          "#d699b6",
+          "#83c092",
+          "#d7e2d8"
+        ],
+        "backgroundColor": "#fefbf1",
+        "cursorColor": "#5c6a72",
+        "foregroundColor": "#5c6a72",
+        "selectionColor": "#5c6a7280",
+        "app": {
+          "terminalUIColor": "#959F92"
+        }
+      },
+      "Night_Owl": {
+        "name": "Night Owl",
+        "colorPaletteOverrides": [
+          "#072945",
+          "#ef5350",
+          "#22da6e",
+          "#c5e478",
+          "#82aaff",
+          "#c792ea",
+          "#21c7a8",
+          "#e1f1ff",
+          "#575656",
+          "#ff7472",
+          "#40fa8d",
+          "#ffeb95",
+          "#a0beff",
+          "#daa4ff",
+          "#7fdbca",
+          "#ffffff"
+        ],
+        "backgroundColor": "#011627",
+        "cursorColor": "#80a4c2",
+        "foregroundColor": "#d6deeb",
+        "selectionColor": "#d6deeb80",
+        "app": {
+          "terminalUIColor": "#6D90AD"
+        }
+      },
+      "Light_Owl": {
+        "name": "Light Owl",
+        "colorPaletteOverrides": [
+          "#403f53",
+          "#de3d3b",
+          "#08916a",
+          "#e0af02",
+          "#288ed7",
+          "#d6438a",
+          "#2aa298",
+          "#e8e5e5",
+          "#57566d",
+          "#fa5d5b",
+          "#1abf90",
+          "#f4c315",
+          "#3ca3ec",
+          "#f559a4",
+          "#39c6ba",
+          "#f6f6f6"
+        ],
+        "backgroundColor": "#fbfbfb",
+        "cursorColor": "#90a7b2",
+        "foregroundColor": "#403f53",
+        "selectionColor": "#403f5380",
+        "app": {
+          "terminalUIColor": "#8898A4"
+        }
+      },
+      "Aura": {
+        "name": "Aura",
+        "colorPaletteOverrides": [
+          "#1c1b22",
+          "#ff6767",
+          "#4deeb8",
+          "#f4be77",
+          "#5b72ee",
+          "#a277ff",
+          "#51fafa",
+          "#dddbfa",
+          "#4d4d4d",
+          "#ffa285",
+          "#99ffdd",
+          "#ffd49d",
+          "#8296ff",
+          "#b592ff",
+          "#8cffff",
+          "#ffffff"
+        ],
+        "backgroundColor": "#21202e",
+        "cursorColor": "#edecee",
+        "foregroundColor": "#edecee",
+        "selectionColor": "#edecee80",
+        "app": {
+          "terminalUIColor": "#A6A2D7"
+        }
+      },
+      "Rosé_Pine": {
+        "name": "Rosé Pine",
+        "colorPaletteOverrides": [
+          "#26233a",
+          "#be5d78",
+          "#78b1bb",
+          "#e4ad5f",
+          "#266782",
+          "#9c7ac5",
+          "#c28987",
+          "#e0def4",
+          "#6e6a86",
+          "#eb6f92",
+          "#9ccfd8",
+          "#f6c177",
+          "#4386a1",
+          "#d5b2ff",
+          "#ebbcba",
+          "#f0eeff"
+        ],
+        "backgroundColor": "#191724",
+        "cursorColor": "#e0def4",
+        "foregroundColor": "#e0def4",
+        "selectionColor": "#e0def480",
+        "app": {
+          "terminalUIColor": "#858297"
+        }
+      },
+      "Rosé_Pine_Moon": {
+        "name": "Rosé Pine Moon",
+        "colorPaletteOverrides": [
+          "#393552",
+          "#be5d78",
+          "#78b1bb",
+          "#e4ad5f",
+          "#307997",
+          "#9c7ac5",
+          "#da8c8a",
+          "#e0def4",
+          "#6e6a86",
+          "#eb6f92",
+          "#9ccfd8",
+          "#f6c177",
+          "#3e8fb0",
+          "#d5b2ff",
+          "#ebbcba",
+          "#f0eeff"
+        ],
+        "backgroundColor": "#232136",
+        "cursorColor": "#e0def4",
+        "foregroundColor": "#e0def4",
+        "selectionColor": "#e0def480",
+        "app": {
+          "terminalUIColor": "#858297"
+        }
+      },
+      "Rosé_Pine_Dawn": {
+        "name": "Rosé Pine Dawn",
+        "colorPaletteOverrides": [
+          "#c9c0b9",
+          "#b4637a",
+          "#56949f",
+          "#ea9d34",
+          "#286983",
+          "#875fb5",
+          "#c47874",
+          "#3e3a5b",
+          "#e5dcd3",
+          "#e8829f",
+          "#a0d5df",
+          "#f6c177",
+          "#46afd9",
+          "#be96ec",
+          "#dd8f8c",
+          "#aaa2e2"
+        ],
+        "backgroundColor": "#faf4ed",
+        "cursorColor": "#575279",
+        "foregroundColor": "#575279",
+        "selectionColor": "#57527980",
+        "app": {
+          "terminalUIColor": "#7D776F"
+        }
+      },
+      "Cobalt2": {
+        "name": "Cobalt2",
+        "colorPaletteOverrides": [
+          "#000000",
+          "#ff0000",
+          "#38de21",
+          "#ffe50a",
+          "#1460d2",
+          "#ff4387",
+          "#00bbbb",
+          "#cfcfcf",
+          "#555555",
+          "#ff757a",
+          "#69fb79",
+          "#fff285",
+          "#77adff",
+          "#ff92cc",
+          "#6bffff",
+          "#ffffff"
+        ],
+        "backgroundColor": "#132738",
+        "cursorColor": "#f0cc09",
+        "foregroundColor": "#ffffff",
+        "selectionColor": "#ffffff80",
+        "app": {
+          "terminalUIColor": "#8B9CAB"
+        }
+      },
+      "Octocat_Dark": {
+        "name": "Octocat Dark",
+        "colorPaletteOverrides": [
+          "#000000",
+          "#f78166",
+          "#56d364",
+          "#e3b341",
+          "#6ca4f8",
+          "#db61a2",
+          "#2b7489",
+          "#DADADA",
+          "#4d4d4d",
+          "#ffb5a5",
+          "#69fb79",
+          "#ffcf5f",
+          "#b0d0ff",
+          "#ff92cc",
+          "#54d8ff",
+          "#ffffff"
+        ],
+        "backgroundColor": "#101216",
+        "cursorColor": "#c9d1d9",
+        "foregroundColor": "#8b949e",
+        "selectionColor": "#8b949e80",
+        "app": {
+          "terminalUIColor": "#626873"
+        }
+      },
+      "Octocat_Light": {
+        "name": "Octocat Light",
+        "colorPaletteOverrides": [
+          "#000000",
+          "#970b16",
+          "#07962a",
+          "#f1d007",
+          "#0053b9",
+          "#e94691",
+          "#89d1ec",
+          "#dfdddd",
+          "#666666",
+          "#de0000",
+          "#87d5a2",
+          "#ffe689",
+          "#2e6cba",
+          "#ffa29f",
+          "#1cfafe",
+          "#ffffff"
+        ],
+        "backgroundColor": "#f4f4f4",
+        "cursorColor": "#3f3f3f",
+        "foregroundColor": "#3e3e3e",
+        "selectionColor": "#3e3e3e80",
+        "app": {
+          "terminalUIColor": "#A1A1A1"
+        }
+      },
+      "Ayu_Dark": {
+        "name": "Ayu Dark",
+        "colorPaletteOverrides": [
+          "#000000",
+          "#ff3333",
+          "#b8cc52",
+          "#dbb012",
+          "#36a3d9",
+          "#df7a80",
+          "#6ceedf",
+          "#ababab",
+          "#323232",
+          "#ff8181",
+          "#eafe84",
+          "#ffe174",
+          "#68d5ff",
+          "#ffa3aa",
+          "#94fff1",
+          "#ffffff"
+        ],
+        "backgroundColor": "#0f1419",
+        "cursorColor": "#f29718",
+        "foregroundColor": "#e6e1cf",
+        "selectionColor": "#e6e1cf80",
+        "app": {
+          "terminalUIColor": "#716F67"
+        }
+      },
+      "Ayu_Light": {
+        "name": "Ayu Light",
+        "colorPaletteOverrides": [
+          "#000000",
+          "#ff3333",
+          "#319900",
+          "#f29718",
+          "#41a6d9",
+          "#e07ead",
+          "#1dd1b0",
+          "#dfdddd",
+          "#323232",
+          "#ff5959",
+          "#b8e532",
+          "#ffc94a",
+          "#73d8ff",
+          "#ffa3aa",
+          "#7ff1cb",
+          "#ffffff"
+        ],
+        "backgroundColor": "#fafafa",
+        "cursorColor": "#ff6a00",
+        "foregroundColor": "#5c6773",
+        "selectionColor": "#5c677380",
+        "app": {
+          "terminalUIColor": "#A1A1A1"
+        }
+      },
+      "Cyberpunk": {
+        "name": "Cyberpunk",
+        "colorPaletteOverrides": [
+          "#100c1d",
+          "#ff7092",
+          "#01da7f",
+          "#ddd84f",
+          "#00a0d6",
+          "#be4eee",
+          "#28e3cc",
+          "#eaeaea",
+          "#221b3a",
+          "#ff9999",
+          "#00f890",
+          "#fff787",
+          "#28bfe9",
+          "#e4a7ff",
+          "#95fff2",
+          "#ffffff"
+        ],
+        "backgroundColor": "#332a57",
+        "cursorColor": "#21f6bc",
+        "foregroundColor": "#e5e5e5",
+        "selectionColor": "#e5e5e580",
+        "app": {
+          "terminalUIColor": "#8174B8"
+        }
+      },
+      "Cyberpunk_Scarlet": {
+        "name": "Cyberpunk Scarlet",
+        "colorPaletteOverrides": [
+          "#272831",
+          "#c5123d",
+          "#019540",
+          "#ffed30",
+          "#00b0ff",
+          "#c77bff",
+          "#4ae3c2",
+          "#6e7281",
+          "#3f4352",
+          "#ff8aa4",
+          "#44d884",
+          "#fff7ac",
+          "#c2ecff",
+          "#e6aefe",
+          "#7bffe2",
+          "#ffffff"
+        ],
+        "backgroundColor": "#101116",
+        "cursorColor": "#00ffc8",
+        "foregroundColor": "#ff0055",
+        "selectionColor": "#ff005580",
+        "app": {
+          "terminalUIColor": "#933F5B"
+        }
+      },
+      "Romania_Night": {
+        "name": "Romania Night",
+        "colorPaletteOverrides": [
+          "#0b141f",
+          "#b50011",
+          "#124150",
+          "#8d562d",
+          "#444f60",
+          "#5b2928",
+          "#80252d",
+          "#917d7c",
+          "#1d2d41",
+          "#de1016",
+          "#b16749",
+          "#d74d29",
+          "#e69148",
+          "#c2b1ad",
+          "#f7d382",
+          "#f5f5ea"
+        ],
+        "backgroundColor": "#0b141f",
+        "cursorColor": "#f7d382",
+        "foregroundColor": "#f5f5ea",
+        "selectionColor": "#f5f5ea80",
+        "app": {
+          "terminalUIColor": "#8092A7"
+        }
+      },
+      "Romania_Day": {
+        "name": "Romania Day",
+        "colorPaletteOverrides": [
+          "#300f0d",
+          "#b50011",
+          "#1c817b",
+          "#b4a667",
+          "#798cb1",
+          "#cf7751",
+          "#fd7d89",
+          "#bfb3a4",
+          "#5b2c29",
+          "#000000",
+          "#5bc2b1",
+          "#ffcd87",
+          "#e69148",
+          "#c2b1ad",
+          "#ddb763",
+          "#fffefd"
+        ],
+        "backgroundColor": "#f5e8e7",
+        "cursorColor": "#d7b25e",
+        "foregroundColor": "#632228",
+        "selectionColor": "#63222880",
+        "app": {
+          "terminalUIColor": "#B29A98"
+        }
+      },
+      "Aubergine": {
+        "name": "Aubergine",
+        "colorPaletteOverrides": [
+          "#47233b",
+          "#ae3120",
+          "#4e9a06",
+          "#c4a000",
+          "#3465a4",
+          "#8f6696",
+          "#5dbdac",
+          "#cdc2b6",
+          "#682e59",
+          "#e95420",
+          "#8ae234",
+          "#fce94f",
+          "#729fcf",
+          "#b188ad",
+          "#34e2e2",
+          "#eeeeec"
+        ],
+        "backgroundColor": "#2c001e",
+        "cursorColor": "#bbbbbb",
+        "foregroundColor": "#eeeeec",
+        "selectionColor": "#eeeeec80",
+        "app": {
+          "terminalUIColor": "#B385A5"
+        }
+      },
+      "Peach_Fresh": {
+        "name": "Peach Fresh",
+        "colorPaletteOverrides": [
+          "#220200",
+          "#cb4434",
+          "#65a06a",
+          "#e6a200",
+          "#3c5672",
+          "#7a1a48",
+          "#517e9a",
+          "#fddac3",
+          "#61201b",
+          "#db6355",
+          "#7db882",
+          "#ffcf5c",
+          "#5f7c9d",
+          "#d06397",
+          "#82adc9",
+          "#ffffff"
+        ],
+        "backgroundColor": "#f5c19e",
+        "cursorColor": "#b33a00",
+        "foregroundColor": "#520701",
+        "selectionColor": "#e6760180",
+        "app": {
+          "terminalUIColor": "#8A6851"
+        }
+      },
+      "1984_Dark": {
+        "name": "1984 Dark",
+        "colorPaletteOverrides": [
+          "#2a2a54",
+          "#db229d",
+          "#89b15c",
+          "#ddca34",
+          "#377fd2",
+          "#c124db",
+          "#4497a2",
+          "#dedef4",
+          "#363666",
+          "#fd27b5",
+          "#9ed262",
+          "#f3e049",
+          "#44a6e0",
+          "#e42cf4",
+          "#6bcdda",
+          "#ececf9"
+        ],
+        "backgroundColor": "#0d1030",
+        "cursorColor": "#dedee1",
+        "foregroundColor": "#dedee1",
+        "selectionColor": "#dedee180",
+        "app": {
+          "terminalUIColor": "#767698"
+        }
+      },
+      "1984_Light": {
+        "name": "1984 Light",
+        "colorPaletteOverrides": [
+          "#1f2022",
+          "#f93bb8",
+          "#2cb569",
+          "#ea9033",
+          "#0380d9",
+          "#cf29ea",
+          "#0698a4",
+          "#dedef4",
+          "#1f2022",
+          "#ff89d6",
+          "#59d08e",
+          "#ffb76d",
+          "#6dc2ff",
+          "#e26eff",
+          "#3bcfdb",
+          "#fbfbfe"
+        ],
+        "backgroundColor": "#e4ecf4",
+        "cursorColor": "#353247",
+        "foregroundColor": "#353247",
+        "selectionColor": "#35324780",
+        "app": {
+          "terminalUIColor": "#798DA1"
+        }
+      },
+      "Winter_Night": {
+        "name": "Winter Night",
+        "colorPaletteOverrides": [
+          "#1e2c37",
+          "#933911",
+          "#51876b",
+          "#cc9867",
+          "#3e5f7e",
+          "#82658a",
+          "#7cb298",
+          "#f9edcc",
+          "#35424c",
+          "#d85751",
+          "#7b9a8a",
+          "#e7cf91",
+          "#6098aa",
+          "#b690e6",
+          "#94d2b5",
+          "#fff9ea"
+        ],
+        "backgroundColor": "#00192c",
+        "cursorColor": "#f8cfa6",
+        "foregroundColor": "#e4d5cc",
+        "selectionColor": "#e4d5cc80",
+        "app": {
+          "terminalUIColor": "#869CB2"
+        }
+      },
+      "Winter_Day": {
+        "name": "Winter Day",
+        "colorPaletteOverrides": [
+          "#685b3f",
+          "#9c3b12",
+          "#5a9f79",
+          "#dca067",
+          "#546f88",
+          "#5d4864",
+          "#2e8e9a",
+          "#d1c6af",
+          "#857554",
+          "#b26848",
+          "#7cb596",
+          "#ffc48d",
+          "#6d8fb0",
+          "#d3b3dd",
+          "#56b6c2",
+          "#fff7e4"
+        ],
+        "backgroundColor": "#ece3d1",
+        "cursorColor": "#5c6370",
+        "foregroundColor": "#1a2720",
+        "selectionColor": "#abb2bf80",
+        "app": {
+          "terminalUIColor": "#887F6A"
+        }
+      },
+      "Tokyo_Night": {
+        "name": "Tokyo Night",
+        "colorPaletteOverrides": [
+          "#373947",
+          "#f7768e",
+          "#92ba68",
+          "#e8be80",
+          "#5d91ff",
+          "#a079e5",
+          "#7dcfff",
+          "#6d759a",
+          "#414868",
+          "#ff8da2",
+          "#b8e785",
+          "#ffd292",
+          "#739fff",
+          "#b288ff",
+          "#b1e2ff",
+          "#dbe2ff"
+        ],
+        "backgroundColor": "#1a1b26",
+        "cursorColor": "#c0caf5",
+        "foregroundColor": "#cdd6ff",
+        "selectionColor": "#c0caf580",
+        "app": {
+          "terminalUIColor": "#6E769A"
+        }
+      },
+      "Tokyo_Day": {
+        "name": "Tokyo Day",
+        "colorPaletteOverrides": [
+          "#f4f4fb",
+          "#f52a65",
+          "#506d31",
+          "#a07433",
+          "#4782d4",
+          "#9854f1",
+          "#004b65",
+          "#465484",
+          "#bfc2d0",
+          "#ff6692",
+          "#819966",
+          "#9f8662",
+          "#5898f0",
+          "#cba4ff",
+          "#00a6de",
+          "#b6c4f9"
+        ],
+        "backgroundColor": "#e1e2e7",
+        "cursorColor": "#3760bf",
+        "foregroundColor": "#2f54a8",
+        "selectionColor": "#3760bf80",
+        "app": {
+          "terminalUIColor": "#757885"
+        }
+      },
+      "Catppuccin_Latte": {
+        "name": "Catppuccin Latte",
+        "colorPaletteOverrides": [
+          "#5c5f77",
+          "#c41037",
+          "#389524",
+          "#d58515",
+          "#3167d2",
+          "#d26eb7",
+          "#09908e",
+          "#acb0be",
+          "#7a7d92",
+          "#e6224c",
+          "#4cb435",
+          "#eb9926",
+          "#2f75ff",
+          "#ff99e3",
+          "#1eabb3",
+          "#d3d7e3"
+        ],
+        "backgroundColor": "#eff1f5",
+        "cursorColor": "#dc8a78",
+        "foregroundColor": "#4c4f69",
+        "selectionColor": "#dc8a7880",
+        "app": {
+          "terminalUIColor": "#858A9C"
+        }
+      },
+      "Catppuccin_Mocha": {
+        "name": "Catppuccin Mocha",
+        "colorPaletteOverrides": [
+          "#45475a",
+          "#ad626b",
+          "#95cb91",
+          "#b09e76",
+          "#4c82d9",
+          "#bc81ae",
+          "#71b2aa",
+          "#5a5d74",
+          "#64698a",
+          "#fb99b4",
+          "#aeeca9",
+          "#ffe7b4",
+          "#67bfff",
+          "#ffccf1",
+          "#a2f3e5",
+          "#d7ddf3"
+        ],
+        "backgroundColor": "#1e1e2e",
+        "cursorColor": "#f5e0dc",
+        "foregroundColor": "#cdd6f4",
+        "selectionColor": "#f5e0dc80",
+        "app": {
+          "terminalUIColor": "#777790"
+        }
+      },
+      "Diwali": {
+        "name": "Diwali",
+        "colorPaletteOverrides": [
+          "#1e0b34",
+          "#ad0656",
+          "#00b45d",
+          "#f8d203",
+          "#4548e1",
+          "#e869ea",
+          "#00d5dd",
+          "#856da2",
+          "#5a3f7e",
+          "#f02889",
+          "#35ef96",
+          "#ffe769",
+          "#7578ff",
+          "#fc99ff",
+          "#47eef4",
+          "#f8efff"
+        ],
+        "backgroundColor": "#311652",
+        "cursorColor": "#ffa900",
+        "foregroundColor": "#fdf6f6",
+        "selectionColor": "#ffa90080",
+        "app": {
+          "terminalUIColor": "#856EA2"
+        }
+      },
+      "Movember": {
+        "name": "Movember",
+        "colorPaletteOverrides": [
+          "#421400",
+          "#a43219",
+          "#4b6d21",
+          "#caa630",
+          "#1e4888",
+          "#7c2f4a",
+          "#357b6e",
+          "#cdba9e",
+          "#561900",
+          "#d04325",
+          "#749c43",
+          "#fac04f",
+          "#4080e0",
+          "#b44c72",
+          "#52bca8",
+          "#fff1dd"
+        ],
+        "backgroundColor": "#1f0900",
+        "cursorColor": "#e6c03c",
+        "foregroundColor": "#ffe7c3",
+        "selectionColor": "#3b262680",
+        "app": {
+          "terminalUIColor": "#8C6D5E"
+        }
+      },
+      "Atom_One_Dark": {
+        "name": "Atom One Dark",
+        "colorPaletteOverrides": [
+          "#000000",
+          "#ca6169",
+          "#82a568",
+          "#bf8c5d",
+          "#56a2e1",
+          "#b76ccd",
+          "#4e9aa3",
+          "#c5cbd6",
+          "#5c6370",
+          "#e77c84",
+          "#b4e294",
+          "#e9b17b",
+          "#7ec5ff",
+          "#db8df2",
+          "#64cfdd",
+          "#ffffff"
+        ],
+        "backgroundColor": "#1e2127",
+        "cursorColor": "#5c6370",
+        "foregroundColor": "#abb2bf",
+        "selectionColor": "#abb2bf80",
+        "app": {
+          "terminalUIColor": "#70798D"
+        }
+      },
+      "Atom_One_Light": {
+        "name": "Atom One Light",
+        "colorPaletteOverrides": [
+          "#000000",
+          "#e45649",
+          "#4c9b4b",
+          "#c99525",
+          "#4078f2",
+          "#a626a4",
+          "#0184bc",
+          "#b8b9bf",
+          "#474747",
+          "#ff7468",
+          "#74ca72",
+          "#dba633",
+          "#6a99ff",
+          "#c142bf",
+          "#00b1fd",
+          "#ffffff"
+        ],
+        "backgroundColor": "#f9f9f9",
+        "cursorColor": "#383a42",
+        "foregroundColor": "#383a42",
+        "selectionColor": "#383a4280",
+        "app": {
+          "terminalUIColor": "#9395A3"
+        }
+      },
+      "Halloween": {
+        "name": "Halloween",
+        "colorPaletteOverrides": [
+          "#100015",
+          "#a31736",
+          "#887225",
+          "#ff7600",
+          "#5c50a6",
+          "#6d008d",
+          "#ae4fa4",
+          "#c7c7c6",
+          "#694a71",
+          "#ff2e5d",
+          "#c3a640",
+          "#ffa85e",
+          "#8e7cff",
+          "#c500ff",
+          "#f491ea",
+          "#fafafa"
+        ],
+        "backgroundColor": "#22012b",
+        "cursorColor": "#ffa900",
+        "foregroundColor": "#e5e5e5",
+        "selectionColor": "#ffa90080",
+        "app": {
+          "terminalUIColor": "#9F84A7"
+        }
+      },
+      "Dia_De_Muertos": {
+        "name": "Dia De Muertos",
+        "colorPaletteOverrides": [
+          "#020018",
+          "#eb1670",
+          "#23816c",
+          "#fb6633",
+          "#5c439e",
+          "#9d2686",
+          "#e29b00",
+          "#d2cbb4",
+          "#3f3b64",
+          "#f63b7b",
+          "#28aa8b",
+          "#ffa85e",
+          "#7a54df",
+          "#ff81c7",
+          "#ffbe30",
+          "#f1ebd9"
+        ],
+        "backgroundColor": "#fffdf5",
+        "cursorColor": "#b33a00",
+        "foregroundColor": "#281f63",
+        "selectionColor": "#e6760180",
+        "app": {
+          "terminalUIColor": "#8B8982"
+        }
+      },
+      "Gruvbox_Dark": {
+        "name": "Gruvbox Dark",
+        "colorPaletteOverrides": [
+          "#151515",
+          "#cc241d",
+          "#98971a",
+          "#d79921",
+          "#458588",
+          "#b16286",
+          "#689d6a",
+          "#c3b198",
+          "#695c50",
+          "#fb4934",
+          "#b8bb26",
+          "#fabd2f",
+          "#83a598",
+          "#f59db5",
+          "#8ec07c",
+          "#ebdbb2"
+        ],
+        "backgroundColor": "#282828",
+        "cursorColor": "#ebdbb2",
+        "foregroundColor": "#ebdbb2",
+        "selectionColor": "#ebdbb280",
+        "app": {
+          "terminalUIColor": "#908477"
+        }
+      },
+      "Gruvbox_Light": {
+        "name": "Gruvbox Light",
+        "colorPaletteOverrides": [
+          "#dfd6b1",
+          "#9d0006",
+          "#79740e",
+          "#b57614",
+          "#076678",
+          "#8f3f71",
+          "#427b58",
+          "#3c3836",
+          "#9d8374",
+          "#cc241d",
+          "#98971a",
+          "#d79921",
+          "#458588",
+          "#d180a5",
+          "#689d69",
+          "#7c6f64"
+        ],
+        "backgroundColor": "#fbf1c7",
+        "cursorColor": "#282828",
+        "foregroundColor": "#282828",
+        "selectionColor": "#28282880",
+        "app": {
+          "terminalUIColor": "#857D5F"
+        }
+      },
+      "Material_Dark": {
+        "name": "Material Dark",
+        "colorPaletteOverrides": [
+          "#040404",
+          "#b7141f",
+          "#457b24",
+          "#f6981e",
+          "#134eb2",
+          "#560088",
+          "#0e717c",
+          "#efefef",
+          "#424242",
+          "#e83b3f",
+          "#7aba3a",
+          "#ffea2e",
+          "#54a4f3",
+          "#aa4dbc",
+          "#26bbd1",
+          "#d9d9d9"
+        ],
+        "backgroundColor": "#232322",
+        "cursorColor": "#16afca",
+        "foregroundColor": "#e5e5e5",
+        "selectionColor": "#e5e5e580",
+        "app": {
+          "terminalUIColor": "#75756E"
+        }
+      },
+      "Material_Light": {
+        "name": "Material Light",
+        "colorPaletteOverrides": [
+          "#000000",
+          "#b7141f",
+          "#457b24",
+          "#f6981e",
+          "#134eb2",
+          "#560088",
+          "#0e717c",
+          "#f5f5f5",
+          "#424242",
+          "#e83b3f",
+          "#7aba3a",
+          "#ffea2e",
+          "#54a4f3",
+          "#aa4dbc",
+          "#26bbd1",
+          "#d9d9d9"
+        ],
+        "backgroundColor": "#eaeaea",
+        "cursorColor": "#16afca",
+        "foregroundColor": "#2f2f2f",
+        "selectionColor": "#23232280",
+        "app": {
+          "terminalUIColor": "#747474"
+        }
+      },
+      "Manhattan": {
+        "name": "Manhattan",
+        "colorPaletteOverrides": [
+          "#0a0a0a",
+          "#840f02",
+          "#5e5e5c",
+          "#c3a421",
+          "#727370",
+          "#d1d1cb",
+          "#4f4f4c",
+          "#aaaba6",
+          "#2e2e2c",
+          "#d15510",
+          "#636361",
+          "#d8b741",
+          "#777875",
+          "#d6d6d0",
+          "#696966",
+          "#afb0ab"
+        ],
+        "backgroundColor": "#0a0a0a",
+        "cursorColor": "#dfe0db",
+        "foregroundColor": "#b8b9b4",
+        "selectionColor": "#b8b9b480",
+        "app": {
+          "terminalUIColor": "#7B7B7B"
+        }
+      },
+      "Plastic_World": {
+        "name": "Plastic World",
+        "colorPaletteOverrides": [
+          "#581743",
+          "#de0000",
+          "#99d76d",
+          "#f2d66f",
+          "#eb8dd7",
+          "#9b37ff",
+          "#68b9dc",
+          "#f6b8ec",
+          "#86316b",
+          "#ff7ba3",
+          "#d3ffaf",
+          "#ffe383",
+          "#fe9be8",
+          "#a65cf0",
+          "#b0e6fe",
+          "#ffe6f7"
+        ],
+        "backgroundColor": "#ea56c1",
+        "cursorColor": "#bafc8b",
+        "foregroundColor": "#ffe9da",
+        "selectionColor": "#ffe9da80",
+        "app": {
+          "terminalUIColor": "#FFD9F2"
+        }
+      },
+      "Basic": {
+        "name": "Basic",
+        "colorPaletteOverrides": [
+          "#2e2e2e",
+          "#c61a1a",
+          "#007900",
+          "#999900",
+          "#0f48cd",
+          "#b200b2",
+          "#3fc1dd",
+          "#acacac",
+          "#757575",
+          "#ff3e3e",
+          "#00b300",
+          "#d4d400",
+          "#316fff",
+          "#ff60c9",
+          "#6ce5ff",
+          "#cac5c5"
+        ],
+        "backgroundColor": "#ffffff",
+        "cursorColor": "#7f7f7f",
+        "foregroundColor": "#000000",
+        "selectionColor": "#00000080",
+        "app": {
+          "terminalUIColor": "#808080"
+        }
+      },
+      "Homebrew": {
+        "name": "Homebrew",
+        "colorPaletteOverrides": [
+          "#2e2e2e",
+          "#c93434",
+          "#348e48",
+          "#e09e00",
+          "#0031e0",
+          "#e235ff",
+          "#3fc1dd",
+          "#d0cfcf",
+          "#5b5b5b",
+          "#ff6767",
+          "#31ff31",
+          "#ffdca8",
+          "#4465da",
+          "#ff5fc8",
+          "#8debff",
+          "#e6e6e6"
+        ],
+        "backgroundColor": "#000000",
+        "cursorColor": "#23ff18",
+        "foregroundColor": "#00ff00",
+        "selectionColor": "#00ff0080",
+        "app": {
+          "terminalUIColor": "#9D9D9D"
+        }
+      },
+      "Grass": {
+        "name": "Grass",
+        "colorPaletteOverrides": [
+          "#000000",
+          "#9a183c",
+          "#6eb95e",
+          "#ffa673",
+          "#00378a",
+          "#771361",
+          "#3bcbea",
+          "#939393",
+          "#393939",
+          "#e0692f",
+          "#b2ffa2",
+          "#ffc27b",
+          "#2380c4",
+          "#ec88c2",
+          "#70e4ff",
+          "#ffffff"
+        ],
+        "backgroundColor": "#13773d",
+        "cursorColor": "#8c2800",
+        "foregroundColor": "#fff0a5",
+        "selectionColor": "#fff0a580",
+        "app": {
+          "terminalUIColor": "#8ED4AC"
+        }
+      },
+      "Man_Page": {
+        "name": "Man Page",
+        "colorPaletteOverrides": [
+          "#383838",
+          "#9a183c",
+          "#009100",
+          "#be6600",
+          "#114695",
+          "#b72fb9",
+          "#3bcbea",
+          "#959595",
+          "#a7a7a7",
+          "#e0692f",
+          "#00b400",
+          "#ffb571",
+          "#3392d6",
+          "#ec88c2",
+          "#70e4ff",
+          "#dadada"
+        ],
+        "backgroundColor": "#fef49c",
+        "cursorColor": "#7f7f7f",
+        "foregroundColor": "#000000",
+        "selectionColor": "#00000080",
+        "app": {
+          "terminalUIColor": "#848057"
+        }
+      },
+      "Novel": {
+        "name": "Novel",
+        "colorPaletteOverrides": [
+          "#000000",
+          "#d30f0f",
+          "#00933b",
+          "#d38b40",
+          "#00528e",
+          "#cc32cf",
+          "#26c3e6",
+          "#a6a6a6",
+          "#5c5c5c",
+          "#e0692f",
+          "#00b400",
+          "#fff284",
+          "#3ba6f3",
+          "#ec88c2",
+          "#38daff",
+          "#f2f2f2"
+        ],
+        "backgroundColor": "#dfdbc3",
+        "cursorColor": "#73635a",
+        "foregroundColor": "#3b2322",
+        "selectionColor": "#3b232280",
+        "app": {
+          "terminalUIColor": "#6F6C5A"
+        }
+      },
+      "Ocean": {
+        "name": "Ocean",
+        "colorPaletteOverrides": [
+          "#000000",
+          "#881616",
+          "#399518",
+          "#dda114",
+          "#00a3ff",
+          "#a83aff",
+          "#28ccd6",
+          "#d3d3d3",
+          "#d2d2d2",
+          "#ff7658",
+          "#00ff47",
+          "#f5c147",
+          "#79ceff",
+          "#ea6fff",
+          "#58f4ff",
+          "#ffffff"
+        ],
+        "backgroundColor": "#224fbc",
+        "cursorColor": "#7f7f7f",
+        "foregroundColor": "#ffffff",
+        "selectionColor": "#ffffff80",
+        "app": {
+          "terminalUIColor": "#9BB4EE"
+        }
+      },
+      "Pro": {
+        "name": "Pro",
+        "colorPaletteOverrides": [
+          "#2e2e2e",
+          "#c93434",
+          "#348e48",
+          "#e09e00",
+          "#002bc7",
+          "#e235ff",
+          "#3fc1dd",
+          "#d0cfcf",
+          "#5b5b5b",
+          "#ff6767",
+          "#31ff31",
+          "#ffdca8",
+          "#4465da",
+          "#ff5fc8",
+          "#8debff",
+          "#e6e6e6"
+        ],
+        "backgroundColor": "#000000",
+        "cursorColor": "#4d4d4d",
+        "foregroundColor": "#f2f2f2",
+        "selectionColor": "#f2f2f280",
+        "app": {
+          "terminalUIColor": "#9D9D9D"
+        }
+      },
+      "Red_Sands": {
+        "name": "Red Sands",
+        "colorPaletteOverrides": [
+          "#000000",
+          "#d30e0e",
+          "#58aa47",
+          "#ffa673",
+          "#0072ff",
+          "#ff57ee",
+          "#3bcbea",
+          "#e6e6e6",
+          "#606060",
+          "#e0692f",
+          "#b2ffa2",
+          "#ffc27b",
+          "#0193fc",
+          "#ffbce2",
+          "#70e4ff",
+          "#ffffff"
+        ],
+        "backgroundColor": "#7a251e",
+        "cursorColor": "#ffffff",
+        "foregroundColor": "#d7c9a7",
+        "selectionColor": "#d7c9a780",
+        "app": {
+          "terminalUIColor": "#CC8984"
+        }
+      },
+      "Solarized_Dark": {
+        "name": "Solarized Dark",
+        "colorPaletteOverrides": [
+          "#11586a",
+          "#dc322f",
+          "#8ea20a",
+          "#b58900",
+          "#268bd2",
+          "#c41f6f",
+          "#2aa198",
+          "#e7e0cc",
+          "#003b4a",
+          "#f15c59",
+          "#677558",
+          "#7e7a61",
+          "#83a8ad",
+          "#886cc4",
+          "#72b6b6",
+          "#fdf6e3"
+        ],
+        "backgroundColor": "#002b36",
+        "cursorColor": "#657779",
+        "foregroundColor": "#839496",
+        "selectionColor": "#65777980",
+        "app": {
+          "terminalUIColor": "#5D838D"
+        }
+      },
+      "Solarized_Light": {
+        "name": "Solarized Light",
+        "colorPaletteOverrides": [
+          "#073642",
+          "#dc322f",
+          "#8fa30a",
+          "#b58900",
+          "#268bd2",
+          "#c41f6f",
+          "#2aa198",
+          "#e6e0cb",
+          "#00252f",
+          "#e05319",
+          "#667558",
+          "#7e7960",
+          "#83a8ad",
+          "#886cc4",
+          "#72b6b6",
+          "#fff0c7"
+        ],
+        "backgroundColor": "#fdf6e3",
+        "cursorColor": "#657b83",
+        "foregroundColor": "#657b83",
+        "selectionColor": "#657b8380",
+        "app": {
+          "terminalUIColor": "#9C9686"
+        }
+      },
+      "Silver_Aerogel": {
+        "name": "Silver Aerogel",
+        "colorPaletteOverrides": [
+          "#262424",
+          "#ca3535",
+          "#09672f",
+          "#ffbe73",
+          "#004582",
+          "#cf41e6",
+          "#45adce",
+          "#eae9e9",
+          "#b6b6b6",
+          "#ff7658",
+          "#57cc5c",
+          "#fff06b",
+          "#487bff",
+          "#ff60c9",
+          "#2cc6f7",
+          "#ffffff"
+        ],
+        "backgroundColor": "#919191",
+        "cursorColor": "#d9d9d9",
+        "foregroundColor": "#000000",
+        "selectionColor": "#00000080",
+        "app": {
+          "terminalUIColor": "#4D4D4D"
+        }
+      },
+      "Dracula": {
+        "name": "Dracula",
+        "colorPaletteOverrides": [
+          "#000000",
+          "#e04242",
+          "#45e16c",
+          "#e3ec7d",
+          "#9b7dc6",
+          "#e469b0",
+          "#8be9fd",
+          "#cac5c5",
+          "#4a4a4a",
+          "#ff5555",
+          "#b5ffc8",
+          "#fff9c8",
+          "#c8a1ff",
+          "#ff8cce",
+          "#c8f5ff",
+          "#ffffff"
+        ],
+        "backgroundColor": "#282a36",
+        "cursorColor": "#bbbbbb",
+        "foregroundColor": "#f8f8f2",
+        "selectionColor": "#f8f8f280",
+        "app": {
+          "terminalUIColor": "#7D8197"
+        }
+      },
+      "Monokai": {
+        "name": "Monokai",
+        "colorPaletteOverrides": [
+          "#1a1a1a",
+          "#dd0056",
+          "#92d526",
+          "#fd971f",
+          "#874deb",
+          "#ea095a",
+          "#48bfd8",
+          "#c4c5b5",
+          "#625e4c",
+          "#ff3382",
+          "#a6f12f",
+          "#e0d561",
+          "#9d65ff",
+          "#ff116d",
+          "#58d1eb",
+          "#f6f6ef"
+        ],
+        "backgroundColor": "#0c0c0c",
+        "cursorColor": "#fc971f",
+        "foregroundColor": "#d9d9d9",
+        "selectionColor": "#d9d9d980",
+        "app": {
+          "terminalUIColor": "#86899A"
+        }
+      },
+      "Nord_Light": {
+        "name": "Nord Light",
+        "colorPaletteOverrides": [
+          "#2c3344",
+          "#ae545d",
+          "#8ca377",
+          "#dabe84",
+          "#718fae",
+          "#95728e",
+          "#78acbb",
+          "#d8dee9",
+          "#4c556a",
+          "#d97982",
+          "#a3be8b",
+          "#eacb8a",
+          "#a4c7e9",
+          "#b48dac",
+          "#8fbcbb",
+          "#eceff4"
+        ],
+        "backgroundColor": "#e5e9f0",
+        "cursorColor": "#88c0d0",
+        "foregroundColor": "#414858",
+        "selectionColor": "#41485880",
+        "app": {
+          "terminalUIColor": "#6F7683"
+        }
+      },
+      "Nord_Dark": {
+        "name": "Nord Dark",
+        "colorPaletteOverrides": [
+          "#3b4252",
+          "#ae545d",
+          "#8ca377",
+          "#dabe84",
+          "#718fae",
+          "#95728e",
+          "#78acbb",
+          "#d8dee9",
+          "#4c556a",
+          "#d97982",
+          "#a3be8b",
+          "#eacb8a",
+          "#a4c7e9",
+          "#b48dac",
+          "#8fbcbb",
+          "#eceff4"
+        ],
+        "backgroundColor": "#2e3440",
+        "cursorColor": "#eceff4",
+        "foregroundColor": "#d8dee9",
+        "selectionColor": "#eceff480",
+        "app": {
+          "terminalUIColor": "#808A9E"
+        }
+      }
+    },
+    "fonts": [
+      "Source Code Pro",
+      "Source Code Pro Medium",
+      "Operator Mono Book",
+      "Operator Mono Medium",
+      "Fira Mono",
+      "Fira Mono Medium",
+      "Inconsolata-g",
+      "Anonymous Pro",
+      "Ubuntu Mono",
+      "Droid Sans Mono",
+      "Dejavu Sans Mono",
+      "PT Mono",
+      "Andale Mono",
+      "Cascadia Code",
+      "Fira Code",
+      "JetBrains Mono",
+      "Meslo"
+    ]
+  }
+}

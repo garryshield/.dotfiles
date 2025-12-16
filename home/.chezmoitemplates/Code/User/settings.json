@@ -1,87 +1,90 @@
 {
-  "[css]": {
-    "editor.defaultFormatter": "vscode.css-language-features"
-  },
-  "[html]": {
-    "editor.defaultFormatter": "vscode.html-language-features"
-  },
-  "[javascript]": {
-    "editor.defaultFormatter": "vscode.typescript-language-features"
-  },
-  "[json]": {
-    "editor.defaultFormatter": "vscode.json-language-features"
-  },
-  "[jsonc]": {
-    "editor.defaultFormatter": "vscode.json-language-features"
-  },
-  "[typescript]": {
-    "editor.defaultFormatter": "vscode.typescript-language-features"
-  },
-  "css.lint.unknownAtRules": "ignore",
-  "editor.accessibilitySupport": "off",
-  "editor.bracketPairColorization.enabled": true,
-  "editor.fontFamily": "'CaskaydiaMono Nerd Font Mono'",
-  "editor.fontSize": 13,
-  "editor.guides.bracketPairs": "active",
-  "editor.guides.bracketPairsHorizontal": "active",
-  "editor.guides.highlightActiveIndentation": false,
-  "editor.guides.indentation": false,
-  "editor.inlineSuggest.enabled": true,
-  "editor.inlineSuggest.showToolbar": "always",
-  "editor.largeFileOptimizations": false,
-  "editor.linkedEditing": true,
-  "editor.minimap.enabled": false,
-  "editor.rulers": [
-    60,
-    80,
-    100,
-    120,
-    240
-  ],
-  "editor.stickyScroll.enabled": false,
-  "editor.tabSize": 2,
-  "editor.unicodeHighlight.ambiguousCharacters": false,
-  "editor.unicodeHighlight.invisibleCharacters": false,
-  "editor.unicodeHighlight.nonBasicASCII": false,
-  "editor.wordWrap": "wordWrapColumn",
-  "editor.wordWrapColumn": 240,
-  "editor.wrappingIndent": "none",
-  "emojisense.languages": {
-    "git-commit": true,
-    "markdown": true,
-    "php": true,
-    "plaintext": {
-      "emojiDecoratorsEnabled": false,
-      "markupCompletionsEnabled": false
+    "[css]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
     },
-    "scminput": true
-  },
-  "files.associations": {
-    "*.css": "tailwindcss"
-  },
-  "files.exclude": {
-    "**/.git": false
-  },
-  "git.autofetch": true,
-  "git.enableSmartCommit": true,
-  "notebook.cellFocusIndicator": "border",
-  "notebook.lineNumbers": "on",
-  "npm.packageManager": "pnpm",
-  "remote.SSH.path": "/",
-  "scss.lint.unknownAtRules": "ignore",
-  "search.exclude": {
-    "**/dist": true
-  },
-  "security.workspace.trust.untrustedFiles": "open",
-  "settingsSync.ignoredExtensions": [],
-  "settingsSync.ignoredSettings": [],
-  "terminal.integrated.defaultProfile.osx": "zsh",
-  "terminal.integrated.scrollback": 100000,
-  "update.mode": "none",
-  "vsicons.dontShowNewVersionMessage": true,
-  "workbench.colorCustomizations": {
-    "editor.lineHighlightBackground": "#55adff2d"
-  },
-  "workbench.colorTheme": "Default Light Modern",
-  "workbench.iconTheme": "material-icon-theme"
+    "[html]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "[javascript]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "[json]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "[jsonc]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "[shellscript]": {
+        "editor.defaultFormatter": "mkhl.shfmt"
+    },
+    "[typescript]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "css.lint.unknownAtRules": "ignore",
+    "editor.accessibilitySupport": "off",
+    "editor.bracketPairColorization.enabled": true,
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.fontFamily": "'CaskaydiaMono Nerd Font Mono'",
+    "editor.fontSize": 13,
+    "editor.guides.bracketPairs": "active",
+    "editor.guides.bracketPairsHorizontal": "active",
+    "editor.guides.highlightActiveIndentation": false,
+    "editor.guides.indentation": false,
+    "editor.inlineSuggest.enabled": true,
+    "editor.inlineSuggest.showToolbar": "always",
+    "editor.largeFileOptimizations": false,
+    "editor.linkedEditing": true,
+    "editor.minimap.enabled": false,
+    "editor.rulers": [
+        60,
+        80,
+        100,
+        120,
+        240
+    ],
+    "editor.stickyScroll.enabled": false,
+    "editor.tabSize": 2,
+    "editor.unicodeHighlight.ambiguousCharacters": false,
+    "editor.unicodeHighlight.invisibleCharacters": false,
+    "editor.unicodeHighlight.nonBasicASCII": false,
+    "editor.wordWrap": "wordWrapColumn",
+    "editor.wordWrapColumn": 240,
+    "editor.wrappingIndent": "none",
+    "emojisense.languages": {
+        "git-commit": true,
+        "markdown": true,
+        "php": true,
+        "plaintext": {
+            "emojiDecoratorsEnabled": false,
+            "markupCompletionsEnabled": false
+        },
+        "scminput": true
+    },
+    "files.exclude": {
+        "**/.git": false
+    },
+    "git.autofetch": true,
+    "git.enableSmartCommit": true,
+    "notebook.cellFocusIndicator": "border",
+    "notebook.lineNumbers": "on",
+    "npm.packageManager": "pnpm",
+    "prettier.printWidth": 120,
+    "remote.SSH.path": "/",
+    "remote.SSH.remotePlatform": {},
+    "scss.lint.unknownAtRules": "ignore",
+    "search.exclude": {
+        "**/dist": true
+    },
+    "security.workspace.trust.untrustedFiles": "open",
+    "settingsSync.ignoredExtensions": [],
+    "settingsSync.ignoredSettings": [],
+    "terminal.integrated.defaultProfile.osx": "zsh",
+    "terminal.integrated.scrollback": 100000,
+    "update.mode": "none",
+    "vsicons.dontShowNewVersionMessage": true,
+    "workbench.colorCustomizations": {
+        "editor.lineHighlightBackground": "#55adff2d"
+    },
+    "workbench.colorTheme": "Default Light Modern",
+    "workbench.iconTheme": "material-icon-theme"
 }

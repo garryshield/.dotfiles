@@ -13,3 +13,10 @@ style_user = 'bold yellow'
 [hostname]
 ssh_only = false
 style =	'bold green'
+
+[direnv]
+disabled = false
+
+[shell]
+disabled = false
+style = 'bold green'

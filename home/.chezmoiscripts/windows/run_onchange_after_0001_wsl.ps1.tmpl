@@ -6,6 +6,8 @@ Exit
 
 Write-Host "[Script $($PSVersionTable.PSEdition)] run_onchange_after_0001_wsl.ps1.tmpl"
 
+# 2025-10-11 20:36:43
+
 {{ template "windows/utils.ps1.tmpl" . }}
 
 ################################################
@@ -15,7 +17,16 @@ Write-Host "[Script $($PSVersionTable.PSEdition)] run_onchange_after_0001_wsl.ps
 # }
 
 wsl --install --no-distribution
+if ($LASTEXITCODE -ne 0) {
+  Write-Error "`wsl --install --no-distribution` failed with code $LASTEXITCODE"
+  Exit $LASTEXITCODE
+}
+
 wsl --update
+if ($LASTEXITCODE -ne 0) {
+  Write-Error "`wsl --update` failed with code $LASTEXITCODE"
+  Exit $LASTEXITCODE
+}
 
 $list = @(
 {{- range $itm := .config.windows.wsl.list }}
@@ -35,7 +46,7 @@ foreach ($itm in $list) {
 
   $location = "{{ .config.windows.wsl.location }}\$($itm.name)"
   wsl --install $($itm.base) --name $($itm.name) --location $($location) --no-launch
-  # wsl --install Debian --name Debian-Base --location C:\wsl\Debian-Base --no-launch
+  # wsl --install Debian --name Debian-Base --location $Env:USERPROFILE\wsl\Debian-Base --no-launch
 
   $wslConfFil = "\\wsl.localhost\$($itm.name)\etc\wsl.conf"
   $fstabFil = "\\wsl.localhost\$($itm.name)\etc\fstab"

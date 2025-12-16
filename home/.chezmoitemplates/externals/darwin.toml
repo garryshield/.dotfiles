@@ -1,9 +1,0 @@
-[".darwin.external"]
-  type = "file"
-  url = "https://github.com/fluidicon.png"
-
-{{ template "externals/parts/oh-my-zsh.toml" . }}
-{{ template "externals/parts/oh-my-bash.toml" . }}
-{{ template "externals/parts/tmux.toml" . }}
-
-{{ template "externals/parts/fonts.toml" . }}

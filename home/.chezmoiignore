@@ -7,14 +7,12 @@
 
 {{/*# =====  =====*/}}
 {{- if eq .chezmoi.os "linux" -}}
-.config/kitty/**
 Library/**
 {{- else -}}
 {{- end }}
 
 {{/*# =====  =====*/}}
 {{- if eq .chezmoi.os "darwin" -}}
-.config/tealdeer/**
 {{- else -}}
 {{- end }}
 
@@ -22,18 +20,33 @@ Library/**
 {{- if eq .chezmoi.os "windows" -}}
 .oh-my-zsh/**
 .oh-my-bash/**
-.local/**
+.gnupg/**
+
+.local/*
+!.local/bin/
+.local/bin/**
+!.local/bin/colortest-tailwindcss
+!.local/bin/colortest-termius
+!.local/bin/colortest-true
+!.local/tealdeer/
+
 .config/*
-!.config/starship.toml
+!.config/tealdeer/
+!.config/bat/
+!.config/gopass/
 !.config/fastfetch/
+!.config/starship.toml
+
 .bash_profile
 .bashrc
 .zshrc
-.npmrc
+
 Library/**
 {{- else -}}
 .oh-my-posh/**
+
 .wslconfig
+
 AppData/**
 Documents/**
 {{- end }}

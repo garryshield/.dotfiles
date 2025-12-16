@@ -1,0 +1,76 @@
+#!/usr/bin/env bun
+
+// @ts-nocheck
+
+/*
+Windows
+C:\Users\74929\AppData\Local\Programs\Termius\resources
+
+Mac
+/Applications/Termius.app/Contents/Resources
+
+index.js
+app.asar.unpacked\node_modules\@termius\libtermius\index.js
+*/
+
+import { extractAll } from "@electron/asar";
+import fs from "node:fs/promises";
+import os from "node:os";
+import path from "node:path";
+import { exit } from "node:process";
+
+const platform = os.platform();
+
+let dir;
+if (platform === "darwin") {
+  dir = "/Applications/Termius.app/Contents/Resources";
+} else if (platform === "win32") {
+  dir = `${process.env.HOME}\\AppData\\Local\\Programs\\Termius\\resources`;
+} else {
+  exit(1);
+}
+
+const installed = await fs.exists(dir);
+if (!installed) {
+  exit(1);
+}
+
+const fil = path.join(dir, "app.asar");
+const out = path.join(dir, "app");
+console.log(`解压 app.asar 文件 ${out}`);
+await fs.mkdir(out, { recursive: true });
+extractAll(fil, out);
+
+//
+const block = `
+////////////
+setTimeout(() => {
+  const electron = require('electron');
+  const { BrowserWindow, Notification } = electron;
+  const win = BrowserWindow.getFocusedWindow();
+
+  new Notification({
+    title: 'title',
+    body: 'message',
+    silent: true
+  }).show();
+
+  win.webContents.on('before-input-event', (event, input) => {
+    if (input.type === 'keyDown' && input.key === 'F12') {
+      if (win.webContents.isDevToolsOpened()) {
+        win.webContents.closeDevTools();
+      } else {
+        win.webContents.openDevTools();
+      }
+    }
+  });
+}, 5000)
+////////////
+`;
+
+const indexFil = path.join(dir, ...["app.asar.unpacked", "node_modules", "@termius", "libtermius", "index.js"]);
+console.log(`注入脚本 ${indexFil}`);
+const content = await fs.readFile(indexFil, "utf8");
+if (!content.includes(block.trim())) {
+  await fs.appendFile(indexFil, `\n${block.trim()}\n`);
+}

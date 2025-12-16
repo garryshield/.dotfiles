@@ -103,11 +103,9 @@ Get-ChildItem Env:
 WSL
 ```ps1
 # 计算机\HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Lxss
-Get-Item `HKCU:\Software\Microsoft\Windows\CurrentVersion\Lxss`
+Get-Item 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Lxss'
+Get-ChildItem 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Lxss'
 ```
-
-
-
 
 ## SSH
 ```bash
@@ -170,4 +168,19 @@ done
 
 ```bash
 ssh-copy-id -f -i id_ed25519.pub xxx@yyy:zzz
+```
+
+```bash
+fil=$(chezmoi source-path)/.chezmoitemplates/windows/wsl.fstab.gpg
+cat <<"EOF" | chezmoi encrypt --output $fil
+//10.10.1.12/D /mnt/host-d cifs username=administrator,password=123156,iocharset=utf8,noperm,mfsymlinks
+//10.10.1.12/E /mnt/host-e cifs username=administrator,password=123156,iocharset=utf8,noperm,mfsymlinks
+EOF
+```
+
+```pwsh
+$key = "C:/Users/Administrator/.chezmoiscripts/windows/0001_wsl.ps1"
+$key = ("$Env:USERPROFILE/.chezmoiscripts/windows/0001_wsl.ps1" -replace '\\','/')
+chezmoi state get --bucket entryState --key $key
+chezmoi state delete --bucket entryState --key $key
 ```

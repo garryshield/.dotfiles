@@ -177,6 +177,10 @@ export EDITOR="vim"
 export VISUAL="vim"
 
 ####
+# starship
+eval "$(starship completions bash)"
+eval "$(starship init bash)"
+####
 # chezmoi
 eval "$(chezmoi completion bash)"
 
@@ -203,21 +207,47 @@ fi
 if command -v pnpm > /dev/null 2>&1; then
   eval "$(pnpm completion bash)"
 fi
+# bun
 if command -v bun > /dev/null 2>&1; then
   eval "$(SHELL=bash bun completions)"
 fi
 
 ####
 # fzf
-export FZF_DEFAULT_COMMAND=
-export FZF_DEFAULT_OPTS=
-export FZF_DEFAULT_OPTS_FILE=~/.fzfrc
+export FZF_DEFAULT_COMMAND=""
+export FZF_DEFAULT_OPTS=""
+export FZF_DEFAULT_OPTS_FILE="$HOME/.fzfrc"
 eval "$(fzf --bash)"
 
 ####
-# starship
-eval "$(starship completions bash)"
-eval "$(starship init bash)"
+# direnv
+eval "$(direnv hook bash)"
+
+####
+# zoxide
+export _ZO_DATA_DIR="$HOME/.local/share/zoxide"
+export _ZO_FZF_OPTS=""
+eval "$(zoxide init bash)"
 
 ####
 fastfetch
+
+#### 
+# tealdeer
+export TEALDEER_CONFIG_DIR="$HOME/.config/tealdeer/"
+
+#### 
+# bat
+export BAT_CONFIG_DIR="$HOME/.config/bat/"
+
+####
+# gopass
+# export GOPASS_DEBUG="true"
+# export GOPASS_DEBUG_VERBOSE=1
+export GOPASS_HOMEDIR="$HOME"
+export GOPASS_CONFIG=".config/gopass/config"
+
+####
+for f in ~/.local/shell/*.sh; do
+  [ -r "$f" ] && source "$f"
+done

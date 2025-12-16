@@ -18,21 +18,28 @@ disable = [
 
 [config.windows.winget]
 install = [
-  "Microsoft.WindowsTerminal",
-  "Microsoft.PowerShell",
   "Git.Git",
   "GnuPG.GnuPG",
   "gopass.gopass",
+  "Microsoft.WindowsTerminal",
+  "Microsoft.PowerShell",
+
   "JanDeDobbeleer.OhMyPosh",
-  "Fastfetch-cli.Fastfetch",
   "Starship.Starship",
+  "Fastfetch-cli.Fastfetch",
+
   "dbrgn.tealdeer",
-  "7zip.7zip",
   "sharkdp.bat",
   "junegunn.fzf",
+  "ajeetdsouza.zoxide",
+
   "Microsoft.PowerToys",
-  "Google.Chrome",
   "Microsoft.VisualStudioCode",
+  "Google.Chrome",
+  "7zip.7zip",
+  "Termius.Termius",
+
+  "Schniz.fnm",
 ]
 uninstall = [
 ]
@@ -71,6 +78,6 @@ password = "xxxxxx"
 [[config.windows.wsl.list]]
 base = "Debian"
 name = "Debian-Base"
-[[config.windows.wsl.list]]
-base = "Ubuntu"
-name = "Ubuntu-Base"
+# [[config.windows.wsl.list]]
+# base = "Ubuntu"
+# name = "Ubuntu-Base"

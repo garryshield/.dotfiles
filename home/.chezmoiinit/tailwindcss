@@ -1,0 +1,34 @@
+#!/usr/bin/env bun
+
+// @ts-nocheck
+
+// https://github.com/tailwindlabs/tailwindcss/blob/main/packages/tailwindcss/src/compat/colors.ts
+
+import { $ } from "bun";
+import * as culori from "culori";
+import twc from "tailwindcss/colors";
+
+const colors = {};
+const orders = [];
+for (var key in twc) {
+  const val = twc[key];
+  if (typeof val !== "object") continue;
+
+  orders.push(key);
+  colors[`${key}`] = {};
+  for (var lev in val) {
+    const hex = culori.formatHex(val[lev]);
+    colors[`${key}`][`${lev}`] = hex;
+  }
+}
+
+console.log(orders);
+
+const data = {
+  tailwindcss: {
+    orders,
+    colors,
+  },
+};
+const dotfiles = (await $`chezmoi source-path`.text()).trim();
+Bun.write(`${dotfiles}/.chezmoidata/tailwindcss.json`, JSON.stringify(data, null, 2));

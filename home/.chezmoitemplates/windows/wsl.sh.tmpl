@@ -1,6 +1,25 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
+is_linux() {
+	[[ "$(uname -s)" == "Linux" ]]
+}
+
+is-debian() {
+	[[ -f /etc/os-release ]] && grep -qi '^ID=debian' /etc/os-release
+}
+
+if is-debian; then
+	if [ -f /etc/apt/sources.list ]; then
+		sudo sed -i 's/deb.debian.org/mirrors.ustc.edu.cn/g' /etc/apt/sources.list
+	fi
+	if [ -f /etc/apt/sources.list.d/debian.sources ]; then
+		sudo sed -i 's/deb.debian.org/mirrors.ustc.edu.cn/g' /etc/apt/sources.list.d/debian.sources
+	fi
+	sudo apt-get update
+	sudo apt-get install -y curl wget openssh-server
+fi
+
 # 创建用户
 username={{ .config.windows.wsl.username }}
 password={{ .config.windows.wsl.password }}

@@ -1,0 +1,31 @@
+#!/usr/bin/env bun
+
+// @ts-nocheck
+
+/*
+# 前景色： \033[38;2;R;G;Bm
+# 背景色： \033[48;2;R;G;Bm
+# R = 0-255
+# G = 0-255
+# B = 0-255
+*/
+
+import chalk from "chalk";
+
+const padS = (str: string, width: number, holder = " ") => str.toString().padStart(width, holder);
+const padE = (str: string, width: number, holder = " ") => str.toString().padEnd(width, holder);
+
+const { orders, colors } = {{ .tailwindcss | toJson }}
+
+const head = [" ".repeat(8), ...Object.keys(colors["red"]).map((v) => padS(v, 4))].join("");
+const body = orders.map((v) => {
+  const text = [
+    padS(v, 8),
+    ...Object.entries(colors[v]).map(([k, v]) => {
+      return chalk.bgHex(v)(" ".repeat(4));
+    }),
+  ];
+  return text.join("");
+});
+
+console.log([head, ...body].join("\n"));

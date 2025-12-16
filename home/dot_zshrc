@@ -135,6 +135,15 @@ export EDITOR="vim"
 export VISUAL="vim"
 
 ####
+# starship
+eval "$(starship completions zsh)"
+eval "$(starship init zsh)"
+# Add a newline between commands
+# https://github.com/starship/starship/issues/560
+precmd() { precmd() { echo "" } }
+alias clear="precmd() { precmd() { echo } } && clear"
+
+####
 # chezmoi
 eval "$(chezmoi completion zsh)"
 
@@ -157,30 +166,54 @@ if [ -f "$FNM_PATH" ] || command -v fnm > /dev/null 2>&1; then
 fi
 
 ####
+# pnpm
 if command -v pnpm > /dev/null 2>&1; then
   eval "$(pnpm completion zsh)"
 fi
+# bun
 if command -v bun > /dev/null 2>&1; then
   eval "$(SHELL=zsh bun completions)"
 fi
 
 ####
 # fzf
-export FZF_DEFAULT_COMMAND=
-export FZF_DEFAULT_OPTS=
-export FZF_DEFAULT_OPTS_FILE=~/.fzfrc
+export FZF_DEFAULT_COMMAND=""
+export FZF_DEFAULT_OPTS=""
+export FZF_DEFAULT_OPTS_FILE="$HOME/.fzfrc"
 eval "$(fzf --zsh)"
 
 ####
-# starship
-eval "$(starship completions zsh)"
-eval "$(starship init zsh)"
+# direnv
+eval "$(direnv hook zsh)"
+
+####
+# zoxide
+export _ZO_DATA_DIR="$HOME/.local/share/zoxide"
+export _ZO_FZF_OPTS=""
+eval "$(zoxide init zsh)"
 
 ####
 fastfetch
 
 ####
-# Add a newline between commands
-# https://github.com/starship/starship/issues/560
-precmd() { precmd() { echo "" } }
-alias clear="precmd() { precmd() { echo } } && clear"
+export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=8,bg=default"
+
+#### 
+# tealdeer
+export TEALDEER_CONFIG_DIR="$HOME/.config/tealdeer/"
+
+#### 
+# bat
+export BAT_CONFIG_DIR="$HOME/.config/bat/"
+
+####
+# gopass
+# export GOPASS_DEBUG="true"
+# export GOPASS_DEBUG_VERBOSE=1
+export GOPASS_HOMEDIR="$HOME"
+export GOPASS_CONFIG=".config/gopass/config"
+
+####
+for f in ~/.local/shell/*.sh(N); do
+  [ -r "$f" ] && source "$f"
+done

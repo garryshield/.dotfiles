@@ -2,6 +2,8 @@
 
 Write-Host "[Script $($PSVersionTable.PSEdition)] run_onchange_before_0001.ps1.tmpl"
 
+# 2025-11-09 20:36:43
+
 {{ template "windows/utils.ps1.tmpl" . }}
 
 ################################################
@@ -110,6 +112,15 @@ foreach ($itm in $list) {
     --force `
     --purge
 }
+
+################################################
+fnm env --use-on-cd --shell powershell | Out-String | Invoke-Expression
+fnm install --lts
+npm install -g bun serve pnpm
+node --version
+npm --version
+pnpm --version
+bun --version
 
 ################################################
 Set-PSResourceRepository -Name PSGallery -Trusted

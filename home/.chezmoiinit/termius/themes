@@ -1,0 +1,102 @@
+#!/usr/bin/env bun
+
+// @ts-nocheck
+
+import { extractAll } from "@electron/asar";
+import decompressTarXz from "@felipecrs/decompress-tarxz";
+import decompress from "@xhmikosr/decompress";
+import ar from "ar";
+import { $ } from "bun";
+import fg from "fast-glob";
+import fs from "node:fs/promises";
+import path from "node:path";
+import tmp from "tmp-promise";
+
+try {
+  tmp.dir({ unsafeCleanup: true }).then(async (o) => {
+    console.log(o.path);
+    const pth = o.path;
+
+    await (async () => {
+      const url = "https://autoupdate.termius.com/linux/Termius.deb";
+      console.log(`下载 ${url}`);
+      const res = await fetch(url);
+      if (!res.ok) {
+        throw new Error(`下载失败: ${res.status}`);
+      }
+      const len = parseInt(res.headers.get("content-length")!);
+      console.log(`大小 ${len ? (len / 1024 / 1024).toFixed(2) + " MB" : "未知"}`);
+      await Bun.write(`${pth}/Termius.deb`, await res.arrayBuffer());
+      await $`ls ${pth}`;
+      console.log();
+    })();
+
+    await (async () => {
+      console.log("解压 Termius.deb");
+      const archive = new ar.Archive(await fs.readFile(`${pth}/Termius.deb`));
+      const files = archive.getFiles();
+      const out = `${pth}/Termius`;
+      await fs.mkdir(out, { recursive: true });
+      for (let i = 0; i < files.length; i++) {
+        const file = files[i];
+        await fs.writeFile(path.resolve(out, file.name()), file.fileData());
+      }
+      await $`ls ${out}`;
+      console.log();
+    })();
+
+    await (async () => {
+      console.log("解压 data.tar.xz");
+      const fil = `${pth}/Termius/data.tar.xz`;
+      const out = `${pth}/data`;
+      await fs.mkdir(out, { recursive: true });
+      await decompress(fil, out, {
+        plugins: [decompressTarXz()],
+      });
+      await $`ls ${out}`;
+      console.log();
+    })();
+
+    await (async () => {
+      console.log("解压 app.asar");
+      const fil = `${pth}/data/opt/Termius/resources/app.asar`;
+      const out = `${pth}/app`;
+      await fs.mkdir(out, { recursive: true });
+      extractAll(fil, out);
+      await $`ls ${out}`;
+      console.log();
+    })();
+
+    await (async () => {
+      console.log("提取主题");
+      const fil = (await fg(`${pth}/app/ui-process/assets/reconnectSaga-*.js`))[0];
+      console.log(fil);
+      const cnt = await fs.readFile(fil, "utf-8");
+
+      const thm_mth = cnt.match(/colorSchemesArray\s*=\s*(\[\{[\s\S]*?\}\])/);
+      const thm = thm_mth![1];
+      const thm_arr = eval(thm);
+      console.log(thm_arr.map((v) => v.name));
+
+      const fnt_mth = cnt.match(/fontFamilies\s*=\s*(\[[\s\S]*?\])/);
+      const fnt = fnt_mth![1];
+      const fnt_arr = eval(fnt);
+      console.log(fnt_arr);
+
+      const tmp = thm_arr.map((v) => [v.name.replace(/\s+/g, "_"), { ...v }]);
+      const thm_obj = Object.fromEntries(tmp);
+      const thm_ord = tmp.map(([k, v]) => k);
+      const data = {
+        termius: {
+          orders: thm_ord,
+          themes: thm_obj,
+          fonts: fnt_arr,
+        },
+      };
+      const dotfiles = (await $`chezmoi source-path`.text()).trim();
+      await Bun.write(`${dotfiles}/.chezmoidata/termius.json`, JSON.stringify(data, null, 2));
+    })();
+  });
+} catch (error) {
+  console.error(error);
+}

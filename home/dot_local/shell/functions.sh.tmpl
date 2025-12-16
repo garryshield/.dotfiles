@@ -1,0 +1,19 @@
+{{- if eq .chezmoi.os "darwin" -}}
+cc-terminal() {
+  chezmoi forget --force ~/Library/Preferences/com.apple.Terminal.plist
+  chezmoi add ~/Library/Preferences/com.apple.Terminal.plist
+  # rm -rf ~/Library/Preferences/com.apple.Terminal.plist
+  # default delete com.apple.Terminal
+}
+
+cc-iterm2() {
+  chezmoi forget --force ~/Library/Preferences/com.googlecode.iterm2.plist
+  chezmoi add ~/Library/Preferences/com.googlecode.iterm2.plist
+  # rm -rf ~/Library/Preferences/com.googlecode.iterm2.plist
+  # defaults delete com.googlecode.iterm2
+}
+
+cc-vscode() {
+  cat ~/Library/Application\ Support/Code/User/settings.json > $(chezmoi source-path)/.chezmoitemplates/Code/User/settings.json
+}
+{{- end }}

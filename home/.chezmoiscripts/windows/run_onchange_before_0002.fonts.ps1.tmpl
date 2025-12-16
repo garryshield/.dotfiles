@@ -2,12 +2,14 @@
 
 Write-Host "[Script $($PSVersionTable.PSEdition)] run_onchange_before_0002.fonts.ps1.tmpl"
 
+# 2025-11-09 20:36:43
+
 {{ template "windows/utils.ps1.tmpl" . }}
 
 ################################################
-$fonts=$(Get-Fonts | Select-Object Name)
-foreach ($font in $fonts) {
-  Uninstall-Fonts -Name $font.Name
-}
+# $fonts=$(Get-Fonts | Select-Object Name)
+# foreach ($font in $fonts) {
+#   Uninstall-Fonts -Name $font.Name -ErrorAction Ignore
+# }
 oh-my-posh font install CascadiaMono
 oh-my-posh font install Monaspace

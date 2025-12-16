@@ -1,0 +1,43 @@
+#!/usr/bin/env bun
+
+// @ts-nocheck
+
+/*
+# 前景色： \033[38;2;R;G;Bm
+# 背景色： \033[48;2;R;G;Bm
+# R = 0-255
+# G = 0-255
+# B = 0-255
+*/
+
+import chalk from "chalk";
+
+const padS = (str: string, width: number, holder = " ") => str.toString().padStart(width, holder);
+const padE = (str: string, width: number, holder = " ") => str.toString().padEnd(width, holder);
+
+const { orders, themes, fonts } = {{ .termius | toJson }};
+
+const width = 30;
+
+for (const [k, v] of orders.entries()) {
+  const ind = k;
+  const obj = themes[v];
+
+  const thm = chalk.bgHex(obj.backgroundColor).hex(obj.foregroundColor);
+
+  const c1 = obj.colorPaletteOverrides.slice(0, 8);
+  const c2 = obj.colorPaletteOverrides.slice(8);
+
+  const m1 = c1.map((v) => chalk.bgHex(v)("  ")).join("");
+  const m2 = c2.map((v) => chalk.bgHex(v)("  ")).join("");
+
+  const text = [
+    thm(`  ${" ".repeat(width)}`),
+    thm(`  ${padE(obj.name, width)}`),
+    thm(`  `) + m1 + thm(`${" ".repeat(width - 8 * 2)}`),
+    thm(`  `) + m2 + thm(`${" ".repeat(width - 8 * 2)}`),
+    thm(`  ${" ".repeat(width)}`),
+  ];
+  console.log(text.join("\n"));
+  ind != orders.length - 1 && console.log("");
+}
